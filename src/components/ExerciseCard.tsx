@@ -1,4 +1,4 @@
-import { Image as ImageIcon, Info, Play, RotateCcw, Users } from 'lucide-react';
+import { Image as ImageIcon, Info, RotateCcw, Users } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { Exercise, Language } from '../types';
 import { getExerciseImages, getFallbackExerciseImage } from '../utils/exerciseApi';
@@ -151,15 +151,6 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                             ))}
                                         </div>
                                     </>
-                                )}
-
-                                {/* Animation Play Button */}
-                                {exerciseImages.length > 1 && (
-                                    <div className="absolute top-2 right-2">
-                                        <div className="bg-primary-600 text-white p-2 rounded-full shadow-lg">
-                                            <Play className="h-4 w-4" />
-                                        </div>
-                                    </div>
                                 )}
 
                                 {/* Image Count Badge */}
