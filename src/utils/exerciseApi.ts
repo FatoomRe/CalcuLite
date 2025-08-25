@@ -64,8 +64,8 @@ const EXERCISE_MAPPING: Record<string, string> = {
   'Leg Curls': 'Lying_Leg_Curls',
   'Leg Extensions': 'Leg_Extensions',
   'Hip Thrusts': 'Barbell_Hip_Thrust',
-  'Lunges': 'Lunge',
-  'Walking Lunges': 'Lunge',
+  'Lunges': 'Dumbbell_Lunges',
+  'Walking Lunges': 'Dumbbell_Lunges',
   'Step-ups': 'Dumbbell_Step_Ups',
   'Calf Raises': 'Standing_Calf_Raises',
   'Standing Calf Raises': 'Standing_Calf_Raises',
@@ -78,10 +78,10 @@ const EXERCISE_MAPPING: Record<string, string> = {
   'Reverse Flyes': 'Cable_Reverse_Fly',
   'Dumbbell Flyes': 'Dumbbell_Flyes',
   'Shrugs': 'Barbell_Shrug',
-  'Mountain Climbers': 'Mountain_Climber',
-  'Burpees': 'Burpee',
+  'Mountain Climbers': 'Mountain_Climbers',
+  'Burpees': 'Butt-Ups',
   'Plank': 'Plank',
-  'Side Plank': 'Side_Plank',
+  'Side Plank': 'Plank',
   
   // Additional missing exercises
   'Single-arm Rows': 'Single-Arm_Dumbbell_Row',
@@ -134,8 +134,8 @@ const EXERCISE_MAPPING: Record<string, string> = {
   'تثني الأرجل': 'Lying_Leg_Curls',
   'تمديد الأرجل': 'Leg_Extensions',
   'دفع الورك': 'Barbell_Hip_Thrust',
-  'الطعن': 'Lunge',
-  'الطعن المتحرك': 'Lunge',
+  'الطعن': 'Dumbbell_Lunges',
+  'الطعن المتحرك': 'Dumbbell_Lunges',
   'صعود الدرج': 'Dumbbell_Step_Ups',
   'رفع السمانة': 'Standing_Calf_Raises',
   'رفع السمانة واقفاً': 'Standing_Calf_Raises',
@@ -148,10 +148,10 @@ const EXERCISE_MAPPING: Record<string, string> = {
   'الفتح العكسي': 'Cable_Reverse_Fly',
   'فتح الدمبل': 'Dumbbell_Flyes',
   'هز الكتفين': 'Barbell_Shrug',
-  'متسلق الجبال': 'Mountain_Climber',
-  'البيربي': 'Burpee',
+  'متسلق الجبال': 'Mountain_Climbers',
+  'البيربي': 'Butt-Ups',
   'البلانك': 'Plank',
-  'البلانك الجانبي': 'Side_Plank',
+  'البلانك الجانبي': 'Plank',
   
   // Additional mappings for exercises with compound names
   'العقلة/السحب العلوي': 'Wide-Grip_Lat_Pulldown',
@@ -173,7 +173,10 @@ const ALTERNATIVE_MAPPINGS: Record<string, string[]> = {
   'Pullups': ['Wide-Grip_Lat_Pulldown', 'Lat_Pulldown'],
   'Pushups': ['Push-Up', 'Incline_Push-Up'],
   'Barbell_Curl': ['Standing_Barbell_Curl', 'Hammer_Curls'],
-  'Lunge': ['Dumbbell_Lunge', 'Walking_Lunge'],
+  'Dumbbell_Lunges': ['Barbell_Lunge', 'Bodyweight_Walking_Lunge'],
+  'Mountain_Climbers': ['Plank', 'Exercise_Ball_Crunch'],
+  'Butt-Ups': ['Plank', 'Crunches'],
+  'Plank': ['Exercise_Ball_Crunch', 'Crunches'],
 };
 
 // Cache for API responses
