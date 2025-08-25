@@ -1,19 +1,34 @@
 # 🍏 CalcuLite
 
-A modern, web application for calculating daily calorie needs, macro breakdowns, and personalized workout plans. Built with React, TypeScript, and Tailwind CSS.
+A modern, bilingual web application for calculating daily calorie needs, macro breakdowns, and personalized workout plans. Built with React, TypeScript, and Tailwind CSS.
 
-![CalcuLite](https://img.shields.io/badge/React-18.x-blue?logo=react)
+![React](https://img.shields.io/badge/React-18.x-blue?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.x-38B2AC?logo=tailwind-css)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Deploy Status](https://github.com/FatoomRe/CalcuLite/actions/workflows/deploy.yml/badge.svg)
-![Security](https://img.shields.io/badge/Security-No%20Secrets-brightgreen)
+![Security](https://img.shields.io/badge/Security-Safe%20for%20Open%20Source-brightgreen)
 
 ## 🔗 Live Demo
 
-Use it here: https://fatoomre.github.io/CalcuLite/
+**Use it here**: [https://fatoomre.github.io/CalcuLite/](https://fatoomre.github.io/CalcuLite/)
 
-<img width="1800" height="760" alt="all-devices-black" src="https://github.com/user-attachments/assets/66d8ef9c-c519-4726-adf8-5a7d08519c98" />
+<img width="1800" height="760" alt="CalcuLite App Screenshot" src="https://github.com/user-attachments/assets/66d8ef9c-c519-4726-adf8-5a7d08519c98" />
+
+## 📋 Table of Contents
+
+- [Features](#-features)
+- [Quick Start](#-quick-start)
+- [Tech Stack](#️-tech-stack)
+- [Project Structure](#-project-structure)
+- [Configuration](#-configuration)
+- [Calculation Formulas](#-calculation-formulas)
+- [Usage Examples](#-usage-examples)
+- [Contributing](#-contributing)
+- [Security](#️-security)
+- [Documentation](#-documentation)
+- [License](#-license)
+- [Roadmap](#️-roadmap)
 
 
 ## ✨ Features
@@ -25,10 +40,11 @@ Use it here: https://fatoomre.github.io/CalcuLite/
 - **Goal-oriented**: Support for muscle building and fat loss goals
 
 ### 🏋️ Workout Planning
-- **4-Day Split Program**: Scientifically designed workout routines
-- **Exercise Instructions**: Detailed guidance for each exercise
+- **Multiple Split Programs**: 3-day, 4-day, 5-day, and 6-day workout routines
+- **Exercise Database**: Integrated with free-exercise-db for exercise details
+- **Visual Guides**: Exercise illustrations and proper form instructions
 - **Progressive Overload**: Sets and reps recommendations
-- **Muscle Group Focus**: Legs, Push, Pull workout split
+- **Flexible Plans**: Beginner to Advanced difficulty levels
 
 ### 🌍 Bilingual Support
 - **English & Arabic**: Full RTL support for Arabic
@@ -84,11 +100,12 @@ npm run build
 ## 🛠️ Tech Stack
 
 - **Frontend Framework**: React 18
-- **Language**: TypeScript
+- **Language**: TypeScript  
 - **Styling**: Tailwind CSS
 - **Icons**: Lucide React
 - **Build Tool**: Vite
 - **PDF Generation**: jsPDF
+- **Exercise Database**: Free Exercise DB API
 - **Linting**: ESLint
 
 ## 📁 Project Structure
@@ -96,26 +113,36 @@ npm run build
 ```
 src/
 ├── components/          # React components
-│   ├── CalculatorForm.tsx
-│   ├── Header.tsx
-│   ├── ResultsDisplay.tsx
-│   ├── MacroChart.tsx
-│   ├── WorkoutPlan.tsx
-│   └── MealPlans.tsx
-├── data/               # Static data and translations
-│   ├── translations.ts
-│   ├── workoutPlans.ts
-│   └── mealPlans.ts
-├── hooks/              # Custom React hooks
-│   ├── useLanguage.ts
-│   └── useTheme.ts
-├── types/              # TypeScript type definitions
-│   └── index.ts
-├── utils/              # Utility functions
-│   ├── calculations.ts
-│   └── pdfExport.ts
-├── App.tsx             # Main app component
-└── main.tsx            # App entry point
+│   ├── CalculatorForm.tsx    # Main calculator interface
+│   ├── Header.tsx           # App header with theme/language toggle
+│   ├── ResultsDisplay.tsx   # Calculation results display
+│   ├── MacroChart.tsx       # Visual macro distribution chart
+│   ├── WorkoutPlan.tsx      # Workout planning interface
+│   ├── ExerciseCard.tsx     # Individual exercise display card
+│   ├── MealPlans.tsx        # Meal planning suggestions
+│   ├── SplashScreen.tsx     # Loading/welcome screen
+│   └── ui/                  # Reusable UI components
+│       ├── Button.tsx
+│       ├── Card.tsx
+│       ├── Badge.tsx
+│       └── index.ts
+├── data/                    # Static data and translations
+│   ├── translations.ts      # EN/AR text translations
+│   ├── workoutPlans.ts     # Exercise routines and plans
+│   └── mealPlans.ts        # Nutrition and meal suggestions
+├── hooks/                   # Custom React hooks
+│   ├── useLanguage.ts      # Language switching logic
+│   └── useTheme.ts         # Theme management
+├── types/                   # TypeScript type definitions
+│   └── index.ts            # All interface definitions
+├── utils/                   # Utility functions
+│   ├── calculations.ts     # BMR/TDEE/Macro calculations
+│   ├── exerciseApi.ts      # Exercise database integration
+│   └── pdfExport.ts        # PDF generation utilities
+├── constants/               # App constants
+│   └── index.ts            # Configuration constants
+├── App.tsx                 # Main app component
+└── main.tsx               # App entry point
 ```
 
 ## 🔧 Configuration
@@ -205,35 +232,34 @@ We welcome contributions! Please read our [Contributing Guidelines](CONTRIBUTING
 - Ensure responsive design
 - Support both languages (EN/AR)
 
-## 📄 Documentation
-
-- **[📖 User Documentation](DOCUMENTATION.md)** - Detailed usage guide
-- **[🤝 Contributing Guidelines](CONTRIBUTING.md)** - How to contribute
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## � Security
+## �️ Security
 
 This project is **100% safe for open source** because:
+
 - ✅ **Frontend-only application** - No server-side secrets
-- ✅ **No API keys** or authentication tokens
+- ✅ **Public APIs only** - Uses free, open exercise database (no API keys required)
 - ✅ **No sensitive data** stored or transmitted
-- ✅ **Client-side calculations only** - All processing happens in your browser
-- ✅ **No external API calls** - Everything works offline
+- ✅ **Client-side calculations** - All processing happens in your browser
+- ✅ **Fallback system** - Robust error handling with local fallback images
+
+### API Integration
+- **Exercise Database**: Uses the free-exercise-db hosted on GitHub
+- **No Rate Limits**: Public API with no authentication required  
+- **Error Handling**: Graceful fallbacks when API is unavailable
 
 ### Privacy
 - **No data collection** - Your personal information never leaves your device
 - **No tracking** - No analytics or user behavior monitoring
 - **No cookies** - No persistent data storage beyond your current session
 
-## �🙏 Acknowledgments
+## � Documentation
 
-- Built with 💚 by [Fatoomre](https://github.com/fatoomre)
-- Inspired by modern fitness and nutrition science
-- Icons by [Lucide](https://lucide.dev/)
-- Color palette inspired by nature's green tones
+- **[� User Documentation](DOCUMENTATION.md)** - Detailed usage guide
+- **[🤝 Contributing Guidelines](CONTRIBUTING.md)** - How to contribute
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🗺️ Roadmap
 
@@ -241,9 +267,17 @@ This project is **100% safe for open source** because:
 - [ ] User accounts and data sync
 - [ ] Advanced meal planning
 - [ ] Integration with fitness trackers
-- [ ] Multiple language support
+- [ ] Multiple language support beyond EN/AR
 - [ ] Nutrition database integration
 - [ ] Progress tracking and analytics
+
+## 🙏 Acknowledgments
+
+- Built with 💚 by [Fatoomre](https://github.com/fatoomre)
+- Inspired by modern fitness and nutrition science
+- Icons by [Lucide](https://lucide.dev/)
+- Color palette inspired by nature's green tones
+- Exercise data from [Free Exercise DB](https://github.com/yuhonas/free-exercise-db)
 
 ---
 
