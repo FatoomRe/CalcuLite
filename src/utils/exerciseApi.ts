@@ -83,6 +83,14 @@ const EXERCISE_MAPPING: Record<string, string> = {
   'Plank': 'Plank',
   'Side Plank': 'Side_Plank',
   
+  // Additional missing exercises
+  'Single-arm Rows': 'Single-Arm_Dumbbell_Row',
+  'Single-Arm Dumbbell Row': 'Single-Arm_Dumbbell_Row',
+  'Cable Lateral Raises': 'Side_Lateral_Raise',
+  'Pull-ups/Lat Pulldowns': 'Wide-Grip_Lat_Pulldown',
+  'Pull-ups/Assisted': 'Pull-ups',
+  'Bicep Curls': 'Standing_Barbell_Curl',
+  
   // Arabic mappings (using the same corrected IDs)
   'القرفصاء': 'Barbell_Full_Squat',
   'القرفصاء الخلفي': 'Barbell_Full_Squat',
@@ -147,7 +155,10 @@ const EXERCISE_MAPPING: Record<string, string> = {
   
   // Additional mappings for exercises with compound names
   'العقلة/السحب العلوي': 'Wide-Grip_Lat_Pulldown',
-  'العقلة / السحب العلوي': 'Wide-Grip_Lat_Pulldown'
+  'العقلة / السحب العلوي': 'Wide-Grip_Lat_Pulldown',
+  'العقلة/المساعدة': 'Pull-ups',
+  'التجديف بذراع واحدة': 'Single-Arm_Dumbbell_Row',
+  'تثني البايسبس': 'Standing_Barbell_Curl'
 };
 
 // Alternative mappings for exercises that might not exist (using correct IDs)
@@ -179,11 +190,14 @@ export const getExerciseData = async (exerciseName: string): Promise<ExerciseApi
       return null;
     }
 
+    console.log(`Fetching exercise data for: ${exerciseName} -> ${exerciseId}`);
+
     // Try primary mapping first
     let data = await tryFetchExercise(exerciseId);
     
     // If primary fails, try alternatives
     if (!data && ALTERNATIVE_MAPPINGS[exerciseId]) {
+      console.log(`Primary mapping failed for ${exerciseName}, trying alternatives...`);
       for (const altId of ALTERNATIVE_MAPPINGS[exerciseId]) {
         data = await tryFetchExercise(altId);
         if (data) {
@@ -196,9 +210,11 @@ export const getExerciseData = async (exerciseName: string): Promise<ExerciseApi
     if (data) {
       // Cache the result
       exerciseCache.set(exerciseName, data);
+      console.log(`Successfully loaded exercise data for: ${exerciseName}`);
       return data;
     }
 
+    console.warn(`Could not load exercise data for: ${exerciseName}`);
     return null;
   } catch (error) {
     console.warn(`Unable to fetch exercise data for ${exerciseName}:`, error instanceof Error ? error.message : error);

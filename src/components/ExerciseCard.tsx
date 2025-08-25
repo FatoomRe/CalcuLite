@@ -28,11 +28,15 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             setError(false);
             
             try {
+                console.log(`Loading exercise data for: ${exercise.name}`);
                 const images = await getExerciseImages(exercise.name);
+                
                 if (images.length > 0) {
+                    console.log(`Found ${images.length} images for ${exercise.name}:`, images);
                     // Validate first image by trying to load it
                     const img = new Image();
                     img.onload = () => {
+                        console.log(`Successfully loaded image for ${exercise.name}`);
                         setExerciseImages(images);
                         setLoading(false);
                     };
@@ -45,6 +49,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                     img.src = images[0];
                 } else {
                     // Use fallback image if no API data
+                    console.log(`No images found for ${exercise.name}, using fallback`);
                     setExerciseImages([getFallbackExerciseImage(exercise.name)]);
                     setLoading(false);
                 }
