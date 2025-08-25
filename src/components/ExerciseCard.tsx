@@ -1,7 +1,7 @@
-import { Info, RotateCcw, Users, Play, Image as ImageIcon } from 'lucide-react';
-import React, { useState, useEffect } from 'react';
+import { Image as ImageIcon, Info, Play, RotateCcw, Users } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 import { Exercise, Language } from '../types';
-import { getExerciseData, getExerciseImages, getFallbackExerciseImage } from '../utils/exerciseApi';
+import { getExerciseImages, getFallbackExerciseImage } from '../utils/exerciseApi';
 
 interface ExerciseCardProps {
     exercise: Exercise;
@@ -30,16 +30,28 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
             try {
                 const images = await getExerciseImages(exercise.name);
                 if (images.length > 0) {
-                    setExerciseImages(images);
+                    // Validate first image by trying to load it
+                    const img = new Image();
+                    img.onload = () => {
+                        setExerciseImages(images);
+                        setLoading(false);
+                    };
+                    img.onerror = () => {
+                        console.warn(`Failed to load exercise image for ${exercise.name}, using fallback`);
+                        setExerciseImages([getFallbackExerciseImage(exercise.name)]);
+                        setError(true);
+                        setLoading(false);
+                    };
+                    img.src = images[0];
                 } else {
                     // Use fallback image if no API data
                     setExerciseImages([getFallbackExerciseImage(exercise.name)]);
+                    setLoading(false);
                 }
             } catch (err) {
-                console.error('Error loading exercise images:', err);
+                console.warn('Error loading exercise data:', err);
                 setError(true);
                 setExerciseImages([getFallbackExerciseImage(exercise.name)]);
-            } finally {
                 setLoading(false);
             }
         };
@@ -91,9 +103,15 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
                                     alt={exercise.name}
                                     className="w-full h-48 object-cover"
                                     onError={() => {
+                                        console.warn(`Image failed to load: ${exerciseImages[currentImageIndex]}`);
+                                        // Replace failed image with fallback
+                                        const fallbackImage = getFallbackExerciseImage(exercise.name);
+                                        const newImages = [...exerciseImages];
+                                        newImages[currentImageIndex] = fallbackImage;
+                                        setExerciseImages(newImages);
+                                        // Also update the error state
                                         if (!error) {
                                             setError(true);
-                                            setExerciseImages([getFallbackExerciseImage(exercise.name)]);
                                         }
                                     }}
                                 />

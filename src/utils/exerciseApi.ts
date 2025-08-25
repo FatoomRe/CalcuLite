@@ -18,132 +18,145 @@ export interface ExerciseApiData {
 // Base URL for the free exercise database
 const BASE_URL = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main';
 
-// Exercise name mapping to API IDs (common exercises)
+// Exercise name mapping to API IDs (using actual available exercise IDs from the database)
 const EXERCISE_MAPPING: Record<string, string> = {
-  // English mappings
-  'Squats': 'bodyweight-squat',
-  'Back Squats': 'barbell-squat',
-  'Front Squats': 'barbell-front-squat',
-  'Goblet Squats': 'dumbbell-goblet-squat',
-  'Bulgarian Split Squats': 'dumbbell-split-squat',
-  'Push-ups': 'push-ups',
-  'Incline Push-ups': 'incline-push-up',
-  'Diamond Push-ups': 'diamond-push-up',
-  'Bench Press': 'barbell-bench-press',
-  'Barbell Bench Press': 'barbell-bench-press',
-  'Incline Barbell Press': 'barbell-incline-bench-press',
-  'Incline Dumbbell Press': 'dumbbell-incline-bench-press',
-  'Dumbbell Press': 'dumbbell-bench-press',
-  'Overhead Press': 'barbell-standing-press',
-  'Dumbbell Shoulder Press': 'dumbbell-shoulder-press',
-  'Deadlifts': 'barbell-deadlift',
-  'Conventional Deadlifts': 'barbell-deadlift',
-  'Romanian Deadlifts': 'barbell-romanian-deadlift',
-  'Stiff Leg Deadlifts': 'barbell-stiff-leg-deadlift',
-  'Pull-ups': 'pull-ups',
-  'Wide-Grip Pull-ups': 'wide-grip-pull-up',
-  'Weighted Pull-ups': 'weighted-pull-up',
-  'Lat Pulldowns': 'wide-grip-lat-pulldown',
-  'Barbell Rows': 'barbell-bent-over-row',
-  'Bent-over Rows': 'barbell-bent-over-row',
-  'T-Bar Rows': 't-bar-row',
-  'Cable Rows': 'seated-cable-rows',
-  'Seated Cable Rows': 'seated-cable-rows',
-  'Barbell Curls': 'barbell-curl',
-  'Hammer Curls': 'hammer-curls',
-  'Preacher Curls': 'barbell-preacher-curl',
-  'Cable Curls': 'cable-curl',
-  'Tricep Dips': 'triceps-dip',
-  'Dips': 'triceps-dip',
-  'Weighted Dips': 'weighted-tricep-dips',
-  'Close-Grip Bench Press': 'barbell-close-grip-bench-press',
-  'Close-Grip Bench': 'barbell-close-grip-bench-press',
-  'Tricep Pushdowns': 'triceps-pushdown',
-  'Overhead Tricep Extension': 'dumbbell-one-arm-triceps-extension',
-  'Leg Press': 'leg-press',
-  'Leg Curls': 'lying-leg-curls',
-  'Leg Extensions': 'leg-extensions',
-  'Hip Thrusts': 'barbell-hip-thrust',
-  'Lunges': 'dumbbell-lunge',
-  'Walking Lunges': 'dumbbell-walking-lunge',
-  'Step-ups': 'dumbbell-step-up',
-  'Calf Raises': 'standing-calf-raises',
-  'Standing Calf Raises': 'standing-calf-raises',
-  'Seated Calf Raises': 'seated-calf-raise',
-  'Lateral Raises': 'dumbbell-lateral-raise',
-  'Dumbbell Lateral Raises': 'dumbbell-lateral-raise',
-  'Face Pulls': 'cable-face-pull',
-  'Cable Face Pulls': 'cable-face-pull',
-  'Rear Delt Flyes': 'cable-reverse-fly',
-  'Reverse Flyes': 'cable-reverse-fly',
-  'Dumbbell Flyes': 'dumbbell-flyes',
-  'Shrugs': 'barbell-shrug',
-  'Mountain Climbers': 'mountain-climber',
-  'Burpees': 'burpee',
-  'Plank': 'plank',
-  'Side Plank': 'side-plank',
+  // English mappings (using actual available exercise IDs)
+  'Squats': 'Barbell_Full_Squat',
+  'Back Squats': 'Barbell_Full_Squat',
+  'Front Squats': 'Front_Squat_Clean_Grip',
+  'Goblet Squats': 'Goblet_Squat',
+  'Bulgarian Split Squats': 'Split_Squat_with_Dumbbells',
+  'Push-ups': 'Push-ups',
+  'Incline Push-ups': 'Incline_Push-Up_Medium',
+  'Diamond Push-ups': 'Diamond_Push-Up',
+  'Bench Press': 'Barbell_Bench_Press_-_Medium_Grip',
+  'Barbell Bench Press': 'Barbell_Bench_Press_-_Medium_Grip',
+  'Incline Barbell Press': 'Incline_Barbell_Press',
+  'Incline Dumbbell Press': 'Incline_Dumbbell_Press',
+  'Dumbbell Press': 'Dumbbell_Bench_Press',
+  'Overhead Press': 'Barbell_Shoulder_Press',
+  'Dumbbell Shoulder Press': 'Standing_Dumbbell_Press',
+  'Deadlifts': 'Barbell_Deadlift',
+  'Conventional Deadlifts': 'Barbell_Deadlift',
+  'Romanian Deadlifts': 'Romanian_Deadlift',
+  'Stiff Leg Deadlifts': 'Stiff-Leg_Deadlift',
+  'Pull-ups': 'Pull-ups',
+  'Wide-Grip Pull-ups': 'Wide-Grip_Pull-up',
+  'Weighted Pull-ups': 'Weighted_Pull-up',
+  'Lat Pulldowns': 'Wide-Grip_Lat_Pulldown',
+  'Barbell Rows': 'Bent_Over_Barbell_Row',
+  'Bent-over Rows': 'Bent_Over_Barbell_Row',
+  'T-Bar Rows': 'T-Bar_Row',
+  'Cable Rows': 'Seated_Cable_Rows',
+  'Seated Cable Rows': 'Seated_Cable_Rows',
+  'Barbell Curls': 'Standing_Barbell_Curl',
+  'Hammer Curls': 'Hammer_Curls',
+  'Preacher Curls': 'Preacher_Curl',
+  'Cable Curls': 'Cable_Curl',
+  'Tricep Dips': 'Dips_-_Triceps_Version',
+  'Dips': 'Dips_-_Triceps_Version',
+  'Weighted Dips': 'Weighted_Tricep_Dips',
+  'Close-Grip Bench Press': 'Close-Grip_Barbell_Bench_Press',
+  'Close-Grip Bench': 'Close-Grip_Barbell_Bench_Press',
+  'Tricep Pushdowns': 'Triceps_Pushdown',
+  'Overhead Tricep Extension': 'Standing_One-Arm_Dumbbell_Triceps_Extension',
+  'Leg Press': 'Leg_Press',
+  'Leg Curls': 'Lying_Leg_Curls',
+  'Leg Extensions': 'Leg_Extensions',
+  'Hip Thrusts': 'Barbell_Hip_Thrust',
+  'Lunges': 'Dumbbell_Lunge',
+  'Walking Lunges': 'Dumbbell_Walking_Lunge',
+  'Step-ups': 'Dumbbell_Step_Ups',
+  'Calf Raises': 'Standing_Calf_Raises',
+  'Standing Calf Raises': 'Standing_Calf_Raises',
+  'Seated Calf Raises': 'Seated_Calf_Raise',
+  'Lateral Raises': 'Side_Lateral_Raise',
+  'Dumbbell Lateral Raises': 'Side_Lateral_Raise',
+  'Face Pulls': 'Cable_Face_Pull',
+  'Cable Face Pulls': 'Cable_Face_Pull',
+  'Rear Delt Flyes': 'Cable_Reverse_Fly',
+  'Reverse Flyes': 'Cable_Reverse_Fly',
+  'Dumbbell Flyes': 'Dumbbell_Flyes',
+  'Shrugs': 'Barbell_Shrug',
+  'Mountain Climbers': 'Mountain_Climber',
+  'Burpees': 'Burpee',
+  'Plank': 'Plank',
+  'Side Plank': 'Side_Plank',
   
-  // Arabic mappings (same IDs)
-  'القرفصاء': 'bodyweight-squat',
-  'القرفصاء الخلفي': 'barbell-squat',
-  'القرفصاء الأمامي': 'barbell-front-squat',
-  'القرفصاء بالدمبل': 'dumbbell-goblet-squat',
-  'القرفصاء البلغاري': 'dumbbell-split-squat',
-  'الضغط': 'push-ups',
-  'الضغط المائل': 'incline-push-up',
-  'الضغط الماسي': 'diamond-push-up',
-  'ضغط البنش': 'barbell-bench-press',
-  'ضغط البار': 'barbell-bench-press',
-  'الضغط المائل بالبار': 'barbell-incline-bench-press',
-  'الضغط المائل بالدمبل': 'dumbbell-incline-bench-press',
-  'ضغط الدمبل': 'dumbbell-bench-press',
-  'الضغط العلوي': 'barbell-standing-press',
-  'ضغط الكتف بالدمبل': 'dumbbell-shoulder-press',
-  'الرفعة الميتة': 'barbell-deadlift',
-  'الرفعة الميتة التقليدية': 'barbell-deadlift',
-  'الرفعة الرومانية': 'barbell-romanian-deadlift',
-  'الرفعة الميتة بأرجل مستقيمة': 'barbell-stiff-leg-deadlift',
-  'العقلة': 'pull-ups',
-  'العقلة واسعة': 'wide-grip-pull-up',
-  'العقلة بوزن': 'weighted-pull-up',
-  'السحب العلوي': 'wide-grip-lat-pulldown',
-  'تجديف البار': 'barbell-bent-over-row',
-  'التجديف المنحني': 'barbell-bent-over-row',
-  'تجديف T-Bar': 't-bar-row',
-  'التجديف بالكيبل': 'seated-cable-rows',
-  'تثني البار': 'barbell-curl',
-  'التثني المطرقي': 'hammer-curls',
-  'تثني الواعظ': 'barbell-preacher-curl',
-  'تثني الكيبل': 'cable-curl',
-  'تراجع الترايسبس': 'triceps-dip',
-  'التراجع': 'triceps-dip',
-  'التراجع بوزن': 'weighted-tricep-dips',
-  'ضغط البنش ضيق': 'barbell-close-grip-bench-press',
-  'البنش ضيق': 'barbell-close-grip-bench-press',
-  'دفع الترايسبس': 'triceps-pushdown',
-  'تمديد الترايسبس العلوي': 'dumbbell-one-arm-triceps-extension',
-  'مكبس الأرجل': 'leg-press',
-  'تثني الأرجل': 'lying-leg-curls',
-  'تمديد الأرجل': 'leg-extensions',
-  'دفع الورك': 'barbell-hip-thrust',
-  'الطعن': 'dumbbell-lunge',
-  'الطعن المتحرك': 'dumbbell-walking-lunge',
-  'صعود الدرج': 'dumbbell-step-up',
-  'رفع السمانة': 'standing-calf-raises',
-  'رفع السمانة واقفاً': 'standing-calf-raises',
-  'رفع السمانة جالساً': 'seated-calf-raise',
-  'الرفع الجانبي': 'dumbbell-lateral-raise',
-  'الرفع الجانبي بالدمبل': 'dumbbell-lateral-raise',
-  'سحب الوجه': 'cable-face-pull',
-  'سحب الوجه بالكيبل': 'cable-face-pull',
-  'فتح الكتف الخلفي': 'cable-reverse-fly',
-  'الفتح العكسي': 'cable-reverse-fly',
-  'فتح الدمبل': 'dumbbell-flyes',
-  'هز الكتفين': 'barbell-shrug',
-  'متسلق الجبال': 'mountain-climber',
-  'البيربي': 'burpee',
-  'البلانك': 'plank',
-  'البلانك الجانبي': 'side-plank'
+  // Arabic mappings (using the same corrected IDs)
+  'القرفصاء': 'Barbell_Full_Squat',
+  'القرفصاء الخلفي': 'Barbell_Full_Squat',
+  'القرفصاء الأمامي': 'Front_Squat_Clean_Grip',
+  'القرفصاء بالدمبل': 'Goblet_Squat',
+  'القرفصاء البلغاري': 'Split_Squat_with_Dumbbells',
+  'الضغط': 'Push-ups',
+  'الضغط المائل': 'Incline_Push-Up_Medium',
+  'الضغط الماسي': 'Diamond_Push-Up',
+  'ضغط البنش': 'Barbell_Bench_Press_-_Medium_Grip',
+  'ضغط البار': 'Barbell_Bench_Press_-_Medium_Grip',
+  'الضغط المائل بالبار': 'Incline_Barbell_Press',
+  'الضغط المائل بالدمبل': 'Incline_Dumbbell_Press',
+  'ضغط الدمبل': 'Dumbbell_Bench_Press',
+  'الضغط العلوي': 'Barbell_Shoulder_Press',
+  'ضغط الكتف بالدمبل': 'Standing_Dumbbell_Press',
+  'الرفعة الميتة': 'Barbell_Deadlift',
+  'الرفعة الميتة التقليدية': 'Barbell_Deadlift',
+  'الرفعة الرومانية': 'Romanian_Deadlift',
+  'الرفعة الميتة بأرجل مستقيمة': 'Stiff-Leg_Deadlift',
+  'العقلة': 'Pull-ups',
+  'العقلة واسعة': 'Wide-Grip_Pull-up',
+  'العقلة بوزن': 'Weighted_Pull-up',
+  'السحب العلوي': 'Wide-Grip_Lat_Pulldown',
+  'تجديف البار': 'Bent_Over_Barbell_Row',
+  'التجديف المنحني': 'Bent_Over_Barbell_Row',
+  'تجديف T-Bar': 'T-Bar_Row',
+  'التجديف بالكيبل': 'Seated_Cable_Rows',
+  'تثني البار': 'Standing_Barbell_Curl',
+  'التثني المطرقي': 'Hammer_Curls',
+  'تثني الواعظ': 'Preacher_Curl',
+  'تثني الكيبل': 'Cable_Curl',
+  'تراجع الترايسبس': 'Dips_-_Triceps_Version',
+  'التراجع': 'Dips_-_Triceps_Version',
+  'التراجع بوزن': 'Weighted_Tricep_Dips',
+  'ضغط البنش ضيق': 'Close-Grip_Barbell_Bench_Press',
+  'البنش ضيق': 'Close-Grip_Barbell_Bench_Press',
+  'دفع الترايسبس': 'Triceps_Pushdown',
+  'تمديد الترايسبس العلوي': 'Standing_One-Arm_Dumbbell_Triceps_Extension',
+  'مكبس الأرجل': 'Leg_Press',
+  'تثني الأرجل': 'Lying_Leg_Curls',
+  'تمديد الأرجل': 'Leg_Extensions',
+  'دفع الورك': 'Barbell_Hip_Thrust',
+  'الطعن': 'Dumbbell_Lunge',
+  'الطعن المتحرك': 'Dumbbell_Walking_Lunge',
+  'صعود الدرج': 'Dumbbell_Step_Ups',
+  'رفع السمانة': 'Standing_Calf_Raises',
+  'رفع السمانة واقفاً': 'Standing_Calf_Raises',
+  'رفع السمانة جالساً': 'Seated_Calf_Raise',
+  'الرفع الجانبي': 'Side_Lateral_Raise',
+  'الرفع الجانبي بالدمبل': 'Side_Lateral_Raise',
+  'سحب الوجه': 'Cable_Face_Pull',
+  'سحب الوجه بالكيبل': 'Cable_Face_Pull',
+  'فتح الكتف الخلفي': 'Cable_Reverse_Fly',
+  'الفتح العكسي': 'Cable_Reverse_Fly',
+  'فتح الدمبل': 'Dumbbell_Flyes',
+  'هز الكتفين': 'Barbell_Shrug',
+  'متسلق الجبال': 'Mountain_Climber',
+  'البيربي': 'Burpee',
+  'البلانك': 'Plank',
+  'البلانك الجانبي': 'Side_Plank',
+  
+  // Additional mappings for exercises with compound names
+  'العقلة/السحب العلوي': 'Wide-Grip_Lat_Pulldown',
+  'العقلة / السحب العلوي': 'Wide-Grip_Lat_Pulldown'
+};
+
+// Alternative mappings for exercises that might not exist (using correct IDs)
+const ALTERNATIVE_MAPPINGS: Record<string, string[]> = {
+  'Barbell_Shoulder_Press': ['Standing_Dumbbell_Press', 'Standing_Military_Press'],
+  'Cable_Face_Pull': ['Cable_Reverse_Fly', 'Side_Lateral_Raise'],
+  'Weighted_Tricep_Dips': ['Dips_-_Triceps_Version', 'Triceps_Pushdown'],
+  'Romanian_Deadlift': ['Barbell_Deadlift', 'Stiff-Leg_Deadlift'],
+  'Wide-Grip_Pull-up': ['Pull-ups', 'Wide-Grip_Lat_Pulldown'],
 };
 
 // Cache for API responses
@@ -166,25 +179,80 @@ export const getExerciseData = async (exerciseName: string): Promise<ExerciseApi
       return null;
     }
 
-    // Fetch exercise data
-    const response = await fetch(`${BASE_URL}/exercises/${exerciseId}.json`);
+    // Try primary mapping first
+    let data = await tryFetchExercise(exerciseId);
+    
+    // If primary fails, try alternatives
+    if (!data && ALTERNATIVE_MAPPINGS[exerciseId]) {
+      for (const altId of ALTERNATIVE_MAPPINGS[exerciseId]) {
+        data = await tryFetchExercise(altId);
+        if (data) {
+          console.info(`Used alternative mapping for ${exerciseName}: ${altId} instead of ${exerciseId}`);
+          break;
+        }
+      }
+    }
+
+    if (data) {
+      // Cache the result
+      exerciseCache.set(exerciseName, data);
+      return data;
+    }
+
+    return null;
+  } catch (error) {
+    console.warn(`Unable to fetch exercise data for ${exerciseName}:`, error instanceof Error ? error.message : error);
+    return null;
+  }
+};
+
+/**
+ * Helper function to try fetching exercise data
+ */
+const tryFetchExercise = async (exerciseId: string): Promise<ExerciseApiData | null> => {
+  try {
+    // Fetch exercise data with timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+
+    const response = await fetch(`${BASE_URL}/exercises/${exerciseId}.json`, {
+      signal: controller.signal,
+      headers: {
+        'Accept': 'application/json',
+      }
+    });
+    
+    clearTimeout(timeoutId);
+
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      return null;
     }
 
     const data: ExerciseApiData = await response.json();
     
-    // Transform image URLs to full URLs
-    if (data.images) {
-      data.images = data.images.map(img => `${BASE_URL}/exercises/${img}`);
+    // Transform image URLs to full URLs and validate them
+    if (data.images && Array.isArray(data.images)) {
+      data.images = data.images
+        .map(img => {
+          // Handle different image path formats
+          if (img.startsWith('http')) {
+            return img;
+          } else if (img.startsWith('/')) {
+            return `${BASE_URL}${img}`;
+          } else {
+            return `${BASE_URL}/exercises/${img}`;
+          }
+        })
+        .filter(img => img && typeof img === 'string');
+    } else {
+      data.images = [];
     }
 
-    // Cache the result
-    exerciseCache.set(exerciseName, data);
-    
     return data;
   } catch (error) {
-    console.error(`Error fetching exercise data for ${exerciseName}:`, error);
+    if (error instanceof Error && error.name === 'AbortError') {
+      console.warn(`Request timeout for exercise: ${exerciseId}`);
+    }
     return null;
   }
 };
@@ -201,8 +269,13 @@ export const getExerciseImage = async (exerciseName: string): Promise<string | n
  * Get all exercise images
  */
 export const getExerciseImages = async (exerciseName: string): Promise<string[]> => {
-  const exerciseData = await getExerciseData(exerciseName);
-  return exerciseData?.images || [];
+  try {
+    const exerciseData = await getExerciseData(exerciseName);
+    return exerciseData?.images || [];
+  } catch (error) {
+    console.warn(`Error getting exercise images for ${exerciseName}:`, error instanceof Error ? error.message : error);
+    return [];
+  }
 };
 
 /**
@@ -217,6 +290,21 @@ export const preloadExerciseImages = async (exerciseNames: string[]): Promise<vo
  * Get fallback image for exercises without API data
  */
 export const getFallbackExerciseImage = (exerciseName: string): string => {
-  // Return a placeholder image from a reliable source
-  return `https://via.placeholder.com/400x300/22c55e/ffffff?text=${encodeURIComponent(exerciseName)}`;
+  // Create a simple, reliable fallback using a data URL with SVG
+  const svgContent = `
+    <svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100%" height="100%" fill="#22c55e"/>
+      <text x="50%" y="40%" text-anchor="middle" fill="white" font-size="20" font-family="Arial, sans-serif">
+        ${exerciseName.length > 30 ? exerciseName.substring(0, 27) + '...' : exerciseName}
+      </text>
+      <text x="50%" y="60%" text-anchor="middle" fill="white" font-size="16" font-family="Arial, sans-serif">
+        Exercise Image
+      </text>
+      <circle cx="200" cy="150" r="100" fill="none" stroke="white" stroke-width="2" opacity="0.3"/>
+      <circle cx="200" cy="150" r="60" fill="none" stroke="white" stroke-width="2" opacity="0.3"/>
+    </svg>
+  `;
+  
+  const encodedSvg = encodeURIComponent(svgContent);
+  return `data:image/svg+xml,${encodedSvg}`;
 };
