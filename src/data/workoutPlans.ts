@@ -69,7 +69,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
               instructions: "Step forward, drop back knee toward ground. Keep torso upright."
             },
             {
-              name: "Pull-ups/Assisted",
+              name: "Pull-ups",
               sets: "3",
               reps: "5-10",
               instructions: "Pull with lats, squeeze shoulder blades. Use assistance if needed."
@@ -222,7 +222,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
           difficulty: 'Intermediate',
           exercises: [
             {
-              name: "Pull-ups/Lat Pulldowns",
+              name: "Pull-ups",
               sets: "4",
               reps: "6-10",
               instructions: "Pull with lats, squeeze shoulder blades together."
@@ -347,7 +347,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
               instructions: "Hands shoulder-width apart. Focus on triceps."
             },
             {
-              name: "Overhead Tricep Extension",
+              name: "Tricep Pushdowns",
               sets: "3",
               reps: "10-12",
               instructions: "Keep elbows stationary. Full stretch at bottom."
@@ -403,7 +403,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
               instructions: "Neutral grip. Alternate arms or together."
             },
             {
-              name: "Cable Face Pulls",
+              name: "Face Pulls",
               sets: "3",
               reps: "15-20",
               instructions: "High rep rear delt work. Squeeze at peak."
@@ -485,7 +485,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
               instructions: "Chest or tricep focus. Add weight if needed."
             },
             {
-              name: "Cable Lateral Raises",
+              name: "Lateral Raises",
               sets: "4",
               reps: "12-15",
               instructions: "Constant tension. Control both phases."
@@ -541,10 +541,10 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
               instructions: "Various angles. Constant tension."
             },
             {
-              name: "Reverse Flyes",
+              name: "Rear Delt Flyes",
               sets: "3",
               reps: "15-20",
-              instructions: "Cable or dumbbell. Focus on rear delts."
+              instructions: "Bent over or machine. Squeeze rear delts."
             }
           ]
         }
@@ -574,7 +574,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
               instructions: "Standing press. Drive through legs."
             },
             {
-              name: "Weighted Dips",
+              name: "Dips",
               sets: "3",
               reps: "6-8",
               instructions: "Add weight for strength. Full range."
@@ -600,7 +600,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
               instructions: "Heavy pulls. Perfect form. Long rest periods."
             },
             {
-              name: "Weighted Pull-ups",
+              name: "Pull-ups",
               sets: "4",
               reps: "5-6",
               instructions: "Add weight. Full range of motion."
@@ -644,7 +644,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
               instructions: "Upright torso. Elbows high."
             },
             {
-              name: "Stiff Leg Deadlifts",
+              name: "Romanian Deadlifts",
               sets: "3",
               reps: "8-10",
               instructions: "Hamstring focus. Control the stretch."
@@ -676,7 +676,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
               instructions: "Multiple sets. Focus on form."
             },
             {
-              name: "Tricep Extensions",
+              name: "Tricep Pushdowns",
               sets: "4",
               reps: "12-15",
               instructions: "Various angles. High volume."
@@ -819,7 +819,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
               instructions: "اخطو للأمام، أنزل الركبة الخلفية نحو الأرض."
             },
             {
-              name: "العقلة/المساعدة",
+              name: "العقلة",
               sets: "3",
               reps: "5-10",
               instructions: "اسحب بعضلات الظهر. استخدم المساعدة إذا لزم الأمر."
@@ -972,7 +972,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
           difficulty: 'Intermediate',
           exercises: [
             {
-              name: "العقلة/السحب العلوي",
+              name: "العقلة",
               sets: "4",
               reps: "6-10",
               instructions: "اسحب بعضلات الظهر، اضغط لوحي الكتف."
@@ -1097,7 +1097,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
               instructions: "اليدين بعرض الكتفين. ركز على الترايسبس."
             },
             {
-              name: "تمديد الترايسبس العلوي",
+              name: "دفع الترايسبس",
               sets: "3",
               reps: "10-12",
               instructions: "حافظ على المرفقين ثابتين."
@@ -1324,7 +1324,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
               instructions: "ضغط واقف. ادفع من الأرجل."
             },
             {
-              name: "التراجع بوزن",
+              name: "التراجع",
               sets: "3",
               reps: "6-8",
               instructions: "أضف وزن للقوة. المدى الكامل."
@@ -1350,7 +1350,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
               instructions: "سحبات ثقيلة. شكل مثالي. راحة طويلة."
             },
             {
-              name: "العقلة بوزن",
+              name: "العقلة",
               sets: "4",
               reps: "5-6",
               instructions: "أضف وزن. المدى الكامل."
@@ -1426,7 +1426,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
               instructions: "مجموعات متعددة. ركز على الشكل."
             },
             {
-              name: "تمديد الترايسبس",
+              name: "دفع الترايسبس",
               sets: "4",
               reps: "12-15",
               instructions: "زوايا مختلفة. حجم عالي."
