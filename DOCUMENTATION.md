@@ -107,7 +107,7 @@ interface MacroChartProps {
 - Touch/mouse interactions
 
 #### `WorkoutPlan.tsx`
-**Purpose**: Displays 4-day workout split
+**Purpose**: Displays multiple workout split programs with exercise database integration
 
 **Props**:
 ```typescript
@@ -128,8 +128,32 @@ interface Exercise {
   sets: number;
   reps: string;
   instructions: string;
+  id: string; // Maps to exercise database
 }
 ```
+
+**Features**:
+- Multiple workout programs (3-day, 4-day, 5-day, 6-day)
+- Difficulty levels (Beginner, Intermediate, Advanced)
+- Dynamic exercise loading from external API
+- Fallback exercise images
+
+#### `ExerciseCard.tsx`
+**Purpose**: Individual exercise display with images and instructions
+
+**Props**:
+```typescript
+interface ExerciseCardProps {
+  exercise: Exercise;
+  language: Language;
+}
+```
+
+**Features**:
+- Exercise illustration loading
+- Error handling with fallback images
+- Responsive design
+- Proper form instructions
 
 ### Utility Components
 
@@ -208,6 +232,47 @@ Women: BMR = 10 × weight + 6.25 × height - 5 × age - 161
 - Charts and graphs
 - Bilingual support
 - Custom branding
+
+### Exercise API Functions
+
+#### `fetchExerciseData(exerciseId: string): Promise<ExerciseData | null>`
+**Description**: Fetches exercise data from free-exercise-db API
+
+**Parameters**:
+- `exerciseId`: Exercise identifier mapped from workout plans
+
+**Returns**:
+```typescript
+interface ExerciseData {
+  name: string;
+  instructions: string[];
+  category: string;
+  images: string[];
+}
+```
+
+**Error Handling**:
+- 5-second timeout for API requests
+- Automatic fallback to alternative exercises
+- Local SVG fallback images
+- Request cancellation support
+
+#### `getFallbackExerciseImage(exerciseName: string): string`
+**Description**: Generates SVG-based fallback image for exercises
+
+**Features**:
+- Consistent styling across exercises
+- No external dependencies
+- Embedded SVG data URLs
+- Responsive design
+
+#### `getExerciseImageUrl(exerciseId: string): Promise<string>`
+**Description**: Gets primary or fallback image URL for exercise
+
+**Fallback Chain**:
+1. Primary API image
+2. Alternative exercise mapping
+3. Generated SVG fallback
 
 ## Internationalization
 
