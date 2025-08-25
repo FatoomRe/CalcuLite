@@ -708,7 +708,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
               instructions: "High rep rear delt work."
             },
             {
-              name: "Bicep Curls",
+              name: "Barbell Curls",
               sets: "4",
               reps: "12-15",
               instructions: "Various exercises. High volume."
