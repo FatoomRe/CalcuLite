@@ -65,7 +65,7 @@ const EXERCISE_MAPPING: Record<string, string> = {
   'Leg Extensions': 'Leg_Extensions',
   'Hip Thrusts': 'Barbell_Hip_Thrust',
   'Lunges': 'Dumbbell_Lunge',
-  'Walking Lunges': 'Dumbbell_Walking_Lunge',
+  'Walking Lunges': 'Dumbbell_Lunge',
   'Step-ups': 'Dumbbell_Step_Ups',
   'Calf Raises': 'Standing_Calf_Raises',
   'Standing Calf Raises': 'Standing_Calf_Raises',
@@ -135,7 +135,7 @@ const EXERCISE_MAPPING: Record<string, string> = {
   'تمديد الأرجل': 'Leg_Extensions',
   'دفع الورك': 'Barbell_Hip_Thrust',
   'الطعن': 'Dumbbell_Lunge',
-  'الطعن المتحرك': 'Dumbbell_Walking_Lunge',
+  'الطعن المتحرك': 'Dumbbell_Lunge',
   'صعود الدرج': 'Dumbbell_Step_Ups',
   'رفع السمانة': 'Standing_Calf_Raises',
   'رفع السمانة واقفاً': 'Standing_Calf_Raises',
@@ -168,6 +168,8 @@ const ALTERNATIVE_MAPPINGS: Record<string, string[]> = {
   'Weighted_Tricep_Dips': ['Dips_-_Triceps_Version', 'Triceps_Pushdown'],
   'Romanian_Deadlift': ['Barbell_Deadlift', 'Stiff-Leg_Deadlift'],
   'Wide-Grip_Pull-up': ['Pull-ups', 'Wide-Grip_Lat_Pulldown'],
+  'Dumbbell_Walking_Lunge': ['Dumbbell_Lunge', 'Dumbbell_Step_Ups'],
+  'Single-Arm_Dumbbell_Row': ['Bent_Over_Barbell_Row', 'Seated_Cable_Rows'],
 };
 
 // Cache for API responses

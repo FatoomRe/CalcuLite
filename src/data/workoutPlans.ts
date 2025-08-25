@@ -757,7 +757,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
       description: "مثالي للمبتدئين أو أصحاب الوقت المحدود. تمارين الجسم كامل 3 مرات أسبوعياً.",
       days: [
         {
-          name: "اليوم 1: الجسم كامل أ",
+          name: "اليوم 1: تمارين الجسم كامل أ",
           focus: "الحركات المركبة",
           duration: "45-60 دقيقة",
           difficulty: 'Beginner',
@@ -795,7 +795,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
           ]
         },
         {
-          name: "اليوم 2: الجسم كامل ب",
+          name: "اليوم 2: تمارين الجسم كامل ب",
           focus: "القوة الوظيفية",
           duration: "45-60 دقيقة",
           difficulty: 'Beginner',
@@ -833,7 +833,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
           ]
         },
         {
-          name: "اليوم 3: الجسم كامل ج",
+          name: "اليوم 3: تمارين الجسم كامل ج",
           focus: "القوة والتكييف",
           duration: "45-60 دقيقة",
           difficulty: 'Intermediate',
@@ -878,7 +878,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
       description: "نهج متوازن يركز على الجزء العلوي والسفلي منفصلين. رائع للمتوسطين.",
       days: [
         {
-          name: "اليوم 1: الجزء العلوي أ",
+          name: "اليوم 1: تمارين الجزء العلوي أ",
           focus: "الصدر والترايسبس",
           duration: "60-75 دقيقة",
           difficulty: 'Intermediate',
@@ -922,7 +922,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
           ]
         },
         {
-          name: "اليوم 2: الجزء السفلي أ",
+          name: "اليوم 2: تمارين الجزء السفلي أ",
           focus: "الفخذ الأمامي والمؤخرة",
           duration: "60-75 دقيقة",
           difficulty: 'Intermediate',
@@ -966,7 +966,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
           ]
         },
         {
-          name: "اليوم 3: الجزء العلوي ب",
+          name: "اليوم 3: تمارين الجزء العلوي ب",
           focus: "الظهر والبايسبس",
           duration: "60-75 دقيقة",
           difficulty: 'Intermediate',
@@ -1010,7 +1010,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
           ]
         },
         {
-          name: "اليوم 4: الجزء السفلي ب",
+          name: "اليوم 4: تمارين الجزء السفلي ب",
           focus: "الفخذ الخلفي والسلسلة الخلفية",
           duration: "60-75 دقيقة",
           difficulty: 'Intermediate',
@@ -1061,7 +1061,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
       description: "تقسيم متقدم للرياضيين ذوي الخبرة. حجم وتكرار عالي لأقصى نمو عضلي.",
       days: [
         {
-          name: "اليوم 1: الدفع (صدر، أكتاف، ترايسبس)",
+          name: "اليوم 1: تمارين الدفع (صدر، أكتاف، ترايسبس)",
           focus: "حركات الدفع",
           duration: "75-90 دقيقة",
           difficulty: 'Advanced',
@@ -1111,7 +1111,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
           ]
         },
         {
-          name: "اليوم 2: السحب (ظهر، بايسبس)",
+          name: "اليوم 2: تمارين السحب (ظهر، بايسبس)",
           focus: "حركات السحب",
           duration: "75-90 دقيقة",
           difficulty: 'Advanced',
@@ -1161,7 +1161,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
           ]
         },
         {
-          name: "اليوم 3: الأرجل (فخذ أمامي، خلفي، مؤخرة)",
+          name: "اليوم 3: تمارين الأرجل (فخذ أمامي، خلفي، مؤخرة)",
           focus: "قوة الجزء السفلي",
           duration: "75-90 دقيقة",
           difficulty: 'Advanced',
@@ -1211,7 +1211,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
           ]
         },
         {
-          name: "اليوم 4: الدفع (تركيز الحجم)",
+          name: "اليوم 4: تمارين الدفع (تركيز الحجم)",
           focus: "تضخم الدفع",
           duration: "75-90 دقيقة",
           difficulty: 'Advanced',
@@ -1255,7 +1255,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
           ]
         },
         {
-          name: "اليوم 5: السحب (تركيز الحجم)",
+          name: "اليوم 5: تمارين السحب (تركيز الحجم)",
           focus: "تضخم السحب",
           duration: "75-90 دقيقة",
           difficulty: 'Advanced',
@@ -1306,7 +1306,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
       description: "تدريب عالي التكرار للرياضيين المتقدمين. أقصى حجم وتحفيز عضلي.",
       days: [
         {
-          name: "اليوم 1: دفع أ (ثقيل)",
+          name: "اليوم 1: تمارين دفع أ (ثقيل)",
           focus: "تركيز القوة",
           duration: "90+ دقيقة",
           difficulty: 'Advanced',
@@ -1338,7 +1338,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
           ]
         },
         {
-          name: "اليوم 2: سحب أ (ثقيل)",
+          name: "اليوم 2: تمارين سحب أ (ثقيل)",
           focus: "تركيز القوة",
           duration: "90+ دقيقة",
           difficulty: 'Advanced',
@@ -1370,7 +1370,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
           ]
         },
         {
-          name: "اليوم 3: أرجل أ (ثقيل)",
+          name: "اليوم 3: تمارين أرجل أ (ثقيل)",
           focus: "تركيز القوة",
           duration: "90+ دقيقة",
           difficulty: 'Advanced',
@@ -1402,7 +1402,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
           ]
         },
         {
-          name: "اليوم 4: دفع ب (حجم)",
+          name: "اليوم 4: تمارين دفع ب (حجم)",
           focus: "تركيز التضخم",
           duration: "75-90 دقيقة",
           difficulty: 'Advanced',
@@ -1434,7 +1434,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
           ]
         },
         {
-          name: "اليوم 5: سحب ب (حجم)",
+          name: "اليوم 5: تمارين سحب ب (حجم)",
           focus: "تركيز التضخم",
           duration: "75-90 دقيقة",
           difficulty: 'Advanced',
@@ -1466,7 +1466,7 @@ export const workoutPlans: Record<string, Record<string, WorkoutPlan>> = {
           ]
         },
         {
-          name: "اليوم 6: أرجل ب (حجم)",
+          name: "اليوم 6: تمارين أرجل ب (حجم)",
           focus: "تركيز التضخم",
           duration: "75-90 دقيقة",
           difficulty: 'Advanced',
