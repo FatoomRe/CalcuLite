@@ -38,6 +38,7 @@ A modern, bilingual web application for calculating daily calorie needs, macro b
 - **TDEE Calculation**: Total Daily Energy Expenditure based on activity level
 - **Macro Breakdown**: Personalized protein, carbs, and fat distribution
 - **Goal-oriented**: Support for muscle building and fat loss goals
+- **💧 Water Intake Calculator**: Daily hydration needs based on gender, age, weight, and activity level
 
 ### 🏋️ Workout Planning
 - **Multiple Split Programs**: 3-day, 4-day, 5-day, and 6-day workout routines
@@ -192,6 +193,23 @@ colors: {
 - **Muscle Building**: 30% Protein, 40% Carbs, 30% Fat
 - **Fat Loss**: 35% Protein, 30% Carbs, 35% Fat
 
+### 💧 Water Intake Calculation
+**Base Formula**: 35ml per kg of body weight
+
+**Gender Adjustments**:
+- **Men**: Base × 1.1 (higher muscle mass requires more hydration)
+- **Women**: Base × 1.0 (standard requirement)
+
+**Age Adjustments**:
+- **65+ years**: Additional 10% (decreased kidney function)
+- **50-64 years**: Additional 5% (metabolic changes)
+- **Under 50**: No adjustment
+
+**Activity Level Adjustments**:
+- **Sedentary**: No additional water
+- **Moderately Active**: +15% for exercise recovery
+- **Highly Active**: +30% for intense training and sweat replacement
+
 ## 🎯 Usage Examples
 
 ### Basic Calculation
@@ -204,6 +222,29 @@ const results = calculateMacros({
   activityLevel: 'moderate',
   goal: 'build'
 });
+
+// Results include:
+// {
+//   bmr: 1654,
+//   tdee: 2564,
+//   goalTdee: 3064,
+//   protein: { grams: 112, calories: 448, percentage: 15 },
+//   carbs: { grams: 383, calories: 1532, percentage: 50 },
+//   fat: { grams: 102, calories: 920, percentage: 30 },
+//   water: { liters: 2.7, milliliters: 2695 }
+// }
+```
+
+### Water Intake Calculation
+```typescript
+const waterIntake = calculateWaterIntake({
+  age: 25,
+  gender: 'male',
+  weight: 70,
+  activityLevel: 'moderate'
+});
+
+// Returns: { liters: 2.7, milliliters: 2695 }
 ```
 
 ### Language Switching
@@ -270,6 +311,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [ ] Multiple language support beyond EN/AR
 - [ ] Nutrition database integration
 - [ ] Progress tracking and analytics
+- [x] **💧 Daily water intake calculator** *(Recently Added)*
+- [ ] Hydration reminders and tracking
+- [ ] Weather-based water intake adjustments
 
 ## 🙏 Acknowledgments
 

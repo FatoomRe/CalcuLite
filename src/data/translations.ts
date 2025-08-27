@@ -37,6 +37,9 @@ export const translations = {
     bmr: "BMR (Basal Metabolic Rate)",
     tdee: "TDEE (Total Daily Energy)",
     goalCalories: "Goal Calories",
+    water: "Daily Water Intake",
+    liters: "liters",
+    milliliters: "ml",
     
     // Workout Plans
     workoutPlan: "4-Day Split Workout Plan",
@@ -106,6 +109,9 @@ export const translations = {
     bmr: "معدل الأيض الأساسي",
     tdee: "إجمالي الطاقة اليومية",
     goalCalories: "سعرات الهدف",
+    water: "الماء اليومي المطلوب",
+    liters: "لتر",
+    milliliters: "مل",
     
     // Workout Plans
     workoutPlan: "خطة التمارين 4 أيام",

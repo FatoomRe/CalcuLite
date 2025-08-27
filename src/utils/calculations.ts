@@ -1,4 +1,4 @@
-import { UserData, MacroResults } from '../types';
+import { MacroResults, UserData } from '../types';
 
 export const calculateMacros = (userData: UserData): MacroResults => {
   const { age, gender, height, weight, activityLevel, goal } = userData;
@@ -37,6 +37,8 @@ export const calculateMacros = (userData: UserData): MacroResults => {
     goalTdee = tdee - 750; // -750 kcal for aggressive fat loss
   } else if (goal === 'maintain') {
     goalTdee = tdee; // Maintenance calories
+  } else { // recomp
+    goalTdee = tdee - 200; // -200 kcal for body recomposition
   }
 
   // Step 4: Calculate Protein Needs
@@ -68,6 +70,9 @@ export const calculateMacros = (userData: UserData): MacroResults => {
   // Carbs (g) = Carb calories ÷ 4
   const carbGrams = carbCalories / 4;
 
+  // Step 7: Calculate Water Needs
+  const waterIntake = calculateWaterIntake(userData);
+
   return {
     bmr: Math.round(bmr),
     tdee: Math.round(tdee),
@@ -86,6 +91,51 @@ export const calculateMacros = (userData: UserData): MacroResults => {
       grams: Math.round(carbGrams),
       calories: Math.round(carbCalories),
       percentage: Math.round((carbCalories / goalTdee) * 100)
-    }
+    },
+    water: waterIntake
+  };
+};
+
+export const calculateWaterIntake = (userData: UserData): { liters: number; milliliters: number } => {
+  const { age, gender, weight, activityLevel } = userData;
+
+  // Base water intake calculation
+  // General formula: 35ml per kg of body weight
+  let baseWaterMl = weight * 35;
+
+  // Gender adjustments
+  if (gender === 'male') {
+    // Men typically need slightly more water due to higher muscle mass
+    baseWaterMl *= 1.1;
+  } else {
+    // Women's base requirement (no additional multiplier needed)
+    baseWaterMl *= 1.0;
+  }
+
+  // Age adjustments
+  if (age >= 65) {
+    // Older adults need more water due to decreased kidney function
+    baseWaterMl *= 1.1;
+  } else if (age >= 50) {
+    // Middle-aged adults need slightly more
+    baseWaterMl *= 1.05;
+  }
+
+  // Activity level adjustments
+  const activityMultipliers = {
+    sedentary: 1.0,     // No additional water needed
+    moderate: 1.15,     // +15% for moderate activity
+    active: 1.3         // +30% for high activity
+  };
+  
+  baseWaterMl *= activityMultipliers[activityLevel];
+
+  // Convert to liters and round appropriately
+  const liters = Math.round((baseWaterMl / 1000) * 10) / 10; // Round to 1 decimal place
+  const milliliters = Math.round(baseWaterMl);
+
+  return {
+    liters,
+    milliliters
   };
 };

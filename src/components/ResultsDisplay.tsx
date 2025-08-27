@@ -1,4 +1,4 @@
-import { Download, Printer, Target, TrendingUp, Zap } from 'lucide-react';
+import { Download, Droplets, Printer, Target, TrendingUp, Zap } from 'lucide-react';
 import React from 'react';
 import { translations } from '../data/translations';
 import { Language, MacroResults } from '../types';
@@ -25,6 +25,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
       icon: Zap,
       color: 'text-blue-600 dark:text-blue-400',
       bg: 'bg-blue-100 dark:bg-blue-900/30',
+      unit: t.calories,
     },
     {
       label: t.tdee,
@@ -32,6 +33,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
       icon: TrendingUp,
       color: 'text-green-600 dark:text-green-400',
       bg: 'bg-green-100 dark:bg-green-900/30',
+      unit: t.calories,
     },
     {
       label: t.goalCalories,
@@ -39,6 +41,16 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
       icon: Target,
       color: 'text-purple-600 dark:text-purple-400',
       bg: 'bg-purple-100 dark:bg-purple-900/30',
+      unit: t.calories,
+    },
+    {
+      label: t.water,
+      value: results.water.liters,
+      icon: Droplets,
+      color: 'text-cyan-600 dark:text-cyan-400',
+      bg: 'bg-cyan-100 dark:bg-cyan-900/30',
+      unit: t.liters,
+      subtitle: `${results.water.milliliters} ${t.milliliters}`,
     },
   ];
 
@@ -63,27 +75,30 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
       </div>
 
       {/* Stats Grid */}
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6">
         {stats.map((stat, index) => (
           <div
             key={index}
-    className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transform hover:scale-105 transition-all duration-200 break-inside-avoid"
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 lg:p-6 transform hover:scale-105 transition-all duration-200 break-inside-avoid min-h-[140px] flex flex-col justify-center items-center text-center"
           >
-            <div className="flex items-center space-x-3 rtl:space-x-reverse">
-              <div className={`p-3 rounded-lg ${stat.bg}`}>
-                <stat.icon className={`h-6 w-6 ${stat.color}`} />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                  {stat.label}
+            <div className={`p-2 rounded-lg ${stat.bg} mb-3`}>
+              <stat.icon className={`h-6 w-6 ${stat.color}`} />
+            </div>
+            <div className="w-full">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1 leading-tight">
+                {stat.label}
+              </p>
+              <p className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white mb-1">
+                {stat.value.toLocaleString()}
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-500">
+                {stat.unit}
+              </p>
+              {stat.subtitle && (
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  {stat.subtitle}
                 </p>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {stat.value.toLocaleString()}
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-500">
-                  {t.calories}
-                </p>
-              </div>
+              )}
             </div>
           </div>
         ))}

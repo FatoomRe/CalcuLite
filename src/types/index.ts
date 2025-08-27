@@ -23,6 +23,7 @@ export interface MacroResults {
   protein: { grams: number; calories: number; percentage: number };
   fat: { grams: number; calories: number; percentage: number };
   carbs: { grams: number; calories: number; percentage: number };
+  water: { liters: number; milliliters: number };
 }
 
 export interface Exercise {

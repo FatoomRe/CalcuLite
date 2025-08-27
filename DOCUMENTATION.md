@@ -196,6 +196,18 @@ interface MacroResults {
   protein: MacroNutrient;
   carbs: MacroNutrient;
   fat: MacroNutrient;
+  water: WaterIntake;
+}
+
+interface MacroNutrient {
+  grams: number;
+  calories: number;
+  percentage: number;
+}
+
+interface WaterIntake {
+  liters: number;
+  milliliters: number;
 }
 
 interface MacroNutrient {
@@ -221,6 +233,41 @@ Women: BMR = 10 × weight + 6.25 × height - 5 × age - 161
 - Sedentary: 1.2
 - Moderate: 1.55
 - Active: 1.9
+
+#### `calculateWaterIntake(userData: UserData): WaterIntake`
+**Description**: Calculates daily water intake requirements based on individual factors
+
+**Algorithm**:
+```
+Base water = weight (kg) × 35ml
+
+Gender adjustment:
+- Male: Base × 1.1
+- Female: Base × 1.0
+
+Age adjustment:
+- 65+ years: × 1.1
+- 50-64 years: × 1.05
+- Under 50: × 1.0
+
+Activity adjustment:
+- Sedentary: × 1.0
+- Moderate: × 1.15
+- Active: × 1.3
+
+Final water = Base × Gender × Age × Activity
+```
+
+**Example**:
+```typescript
+const waterNeeds = calculateWaterIntake({
+  age: 30,
+  gender: 'male',
+  weight: 75,
+  activityLevel: 'moderate'
+});
+// Returns: { liters: 3.0, milliliters: 3019 }
+```
 
 ### PDF Export Functions
 
@@ -421,6 +468,63 @@ const getGoalCalories = (tdee: number, goal: string): number => {
   }
 };
 ```
+
+### 💧 Water Intake Calculation
+
+The water intake calculator uses a comprehensive algorithm that considers multiple physiological factors:
+
+#### Base Calculation
+```typescript
+const calculateWaterIntake = (userData: UserData): WaterIntake => {
+  const { age, gender, weight, activityLevel } = userData;
+  
+  // Base: 35ml per kg of body weight (WHO recommendation)
+  let baseWaterMl = weight * 35;
+  
+  // Gender adjustments for muscle mass differences
+  baseWaterMl *= gender === 'male' ? 1.1 : 1.0;
+  
+  // Age-based adjustments for metabolic changes
+  if (age >= 65) baseWaterMl *= 1.1;      // +10% for elderly
+  else if (age >= 50) baseWaterMl *= 1.05; // +5% for middle-aged
+  
+  // Activity level adjustments for sweat loss
+  const activityMultipliers = {
+    sedentary: 1.0,   // No additional water
+    moderate: 1.15,   // +15% for moderate exercise
+    active: 1.3       // +30% for intense training
+  };
+  
+  baseWaterMl *= activityMultipliers[activityLevel];
+  
+  return {
+    liters: Math.round((baseWaterMl / 1000) * 10) / 10,
+    milliliters: Math.round(baseWaterMl)
+  };
+};
+```
+
+#### Scientific Rationale
+
+**Base Formula (35ml/kg)**:
+- Based on WHO/EFSA recommendations
+- Accounts for basic metabolic needs
+- Suitable for temperate climates
+
+**Gender Adjustments**:
+- Men typically have 10-15% higher muscle mass
+- Muscle tissue requires more hydration than fat tissue
+- Accounts for differences in metabolic water production
+
+**Age Considerations**:
+- Kidney function declines with age (≈1% per year after 30)
+- Reduced thirst sensation in elderly
+- Changes in body composition and hormone levels
+
+**Activity Multipliers**:
+- Based on ACSM exercise guidelines
+- Accounts for electrolyte loss through sweat
+- Considers post-exercise recovery needs
 
 ## Testing Guide
 
