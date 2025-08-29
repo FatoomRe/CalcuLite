@@ -69,7 +69,8 @@ export const translations = {
     lightMode: "Light Mode",
     
     // Footer
-    poweredBy: "Built with 💚 by Fatoomre",
+    poweredBy: "Built with 💚 by",
+    authorName: "Fatimah Alabbas",
   },
   ar: {
     // Navigation
@@ -141,6 +142,7 @@ export const translations = {
     lightMode: "الوضع النهاري",
     
     // Footer
-    poweredBy: "Built with 💚 by Fatoomre",
+    poweredBy: "Built with 💚 by",
+    authorName: "Fatimah Alabbas",
   }
 };
