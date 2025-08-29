@@ -317,7 +317,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Built with 💚 by [Fatoomre](https://github.com/fatoomre)
+- Built with 💚 by [Fatimah Alabbas](https://fatoomre.github.io/MyPortfolio/)
 - Inspired by modern fitness and nutrition science
 - Icons by [Lucide](https://lucide.dev/)
 - Color palette inspired by nature's green tones
