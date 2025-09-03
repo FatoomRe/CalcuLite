@@ -163,11 +163,6 @@ interface ExerciseCardProps {
 - Theme toggle button
 - Responsive navigation
 
-#### `MealPlans.tsx`
-- Sample meal suggestions
-- Macro-aligned recommendations
-- Dietary preference options
-
 ## API Reference
 
 ### Calculation Functions
@@ -664,7 +659,6 @@ VITE_ANALYTICS_ID=your-analytics-id
 ```typescript
 // Code splitting
 const WorkoutPlan = lazy(() => import('./components/WorkoutPlan'));
-const MealPlans = lazy(() => import('./components/MealPlans'));
 
 // Image optimization
 const optimizedImages = {

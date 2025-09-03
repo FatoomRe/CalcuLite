@@ -48,20 +48,6 @@ export interface WorkoutPlan {
   restDays: number;
 }
 
-export interface MealPlan {
-  name: string;
-  category: 'breakfast' | 'lunch' | 'dinner' | 'snack';
-  prepTime: number;
-  difficulty: 'Easy' | 'Medium' | 'Hard';
-  protein: number;
-  carbs: number;
-  fat: number;
-  calories: number;
-  ingredients: string[];
-  instructions: string[];
-  tips?: string[];
-}
-
 export type Language = 'en' | 'ar';
 
 export type Theme = 'light' | 'dark';

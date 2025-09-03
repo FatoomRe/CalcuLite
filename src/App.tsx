@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { CalculatorForm } from './components/CalculatorForm';
 import { Header } from './components/Header';
 import { MacroChart } from './components/MacroChart';
-import { MealPlans } from './components/MealPlans';
 import { ResultsDisplay } from './components/ResultsDisplay';
 import { SplashScreen } from './components/SplashScreen';
 import { WorkoutPlan } from './components/WorkoutPlan';
@@ -104,9 +103,6 @@ function App() {
 
               {/* Workout Plan */}
               <WorkoutPlan language={language} />
-
-              {/* Meal Plans */}
-              <MealPlans language={language} />
             </div>
           )}
         </div>

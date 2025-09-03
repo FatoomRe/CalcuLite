@@ -1,8 +1,8 @@
+import { ChefHat, Clock, Filter, Star } from 'lucide-react';
 import React, { useState } from 'react';
-import { ChefHat, Clock, Star, Filter } from 'lucide-react';
-import { Language } from '../types';
-import { translations } from '../data/translations';
 import { mealPlans } from '../data/mealPlans';
+import { translations } from '../data/translations';
+import { Language, MealPlan } from '../types';
 
 interface MealPlansProps {
   language: Language;
@@ -29,7 +29,7 @@ export const MealPlans: React.FC<MealPlansProps> = ({ language }) => {
     { key: 'Hard', name: language === 'en' ? 'Hard' : 'صعب' }
   ];
 
-  const filteredMeals = meals.filter(meal => {
+  const filteredMeals = meals.filter((meal: MealPlan) => {
     const categoryMatch = selectedCategory === 'all' || meal.category === selectedCategory;
     const difficultyMatch = selectedDifficulty === 'all' || meal.difficulty === selectedDifficulty;
     return categoryMatch && difficultyMatch;
@@ -62,11 +62,40 @@ export const MealPlans: React.FC<MealPlansProps> = ({ language }) => {
         </div>
         <div>
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-            {language === 'en' ? 'Meal Plans' : 'خطط الوجبات'}
+            {language === 'en' ? 'Healthy Meal Plans' : 'خطط الوجبات الصحية'}
           </h3>
           <p className="text-gray-600 dark:text-gray-400 text-sm">
-            {language === 'en' ? 'Macro-optimized recipes for your fitness goals' : 'وصفات محسنة للمغذيات الكبيرة لأهدافك الرياضية'}
+            {language === 'en' 
+              ? 'Low-sugar, macro-optimized recipes inspired by Saudi health guidelines' 
+              : 'وصفات قليلة السكر ومحسنة للمغذيات الكبيرة مستوحاة من الإرشادات الصحية السعودية'
+            }
           </p>
+        </div>
+      </div>
+
+      {/* Health Benefits Banner */}
+      <div className="mb-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-lg border border-green-200 dark:border-green-800">
+        <h4 className="font-semibold text-green-800 dark:text-green-400 mb-2 flex items-center space-x-2 rtl:space-x-reverse">
+          <span>💚</span>
+          <span>{language === 'en' ? 'Health-Focused Features:' : 'الميزات المركزة على الصحة:'}</span>
+        </h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-green-700 dark:text-green-300">
+          <div className="flex items-center space-x-2 rtl:space-x-reverse">
+            <span>✓</span>
+            <span>{language === 'en' ? 'Minimal added sugars' : 'سكر مضاف قليل'}</span>
+          </div>
+          <div className="flex items-center space-x-2 rtl:space-x-reverse">
+            <span>✓</span>
+            <span>{language === 'en' ? 'High fiber content' : 'محتوى عالي من الألياف'}</span>
+          </div>
+          <div className="flex items-center space-x-2 rtl:space-x-reverse">
+            <span>✓</span>
+            <span>{language === 'en' ? 'Heart-healthy fats' : 'دهون صحية للقلب'}</span>
+          </div>
+          <div className="flex items-center space-x-2 rtl:space-x-reverse">
+            <span>✓</span>
+            <span>{language === 'en' ? 'Balanced macronutrients' : 'مغذيات كبيرة متوازنة'}</span>
+          </div>
         </div>
       </div>
 
@@ -126,7 +155,7 @@ export const MealPlans: React.FC<MealPlansProps> = ({ language }) => {
 
       {/* Meal Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {filteredMeals.map((meal, index) => (
+        {filteredMeals.map((meal: MealPlan, index: number) => (
           <div
             key={index}
             className="border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-700"
@@ -196,7 +225,7 @@ export const MealPlans: React.FC<MealPlansProps> = ({ language }) => {
               </h5>
               <div className="bg-gray-50 dark:bg-gray-600 rounded-lg p-3">
                 <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-1">
-                  {meal.ingredients.map((ingredient, idx) => (
+                  {meal.ingredients.map((ingredient: string, idx: number) => (
                     <li key={idx} className="flex items-start space-x-2 rtl:space-x-reverse">
                       <div className="w-1.5 h-1.5 bg-primary-600 dark:bg-primary-400 rounded-full flex-shrink-0 mt-2" />
                       <span>{ingredient}</span>
@@ -214,7 +243,7 @@ export const MealPlans: React.FC<MealPlansProps> = ({ language }) => {
               </h5>
               <div className="bg-gray-50 dark:bg-gray-600 rounded-lg p-3">
                 <ol className="text-sm text-gray-700 dark:text-gray-300 space-y-2">
-                  {meal.instructions.map((instruction, idx) => (
+                  {meal.instructions.map((instruction: string, idx: number) => (
                     <li key={idx} className="flex space-x-3 rtl:space-x-reverse">
                       <span className="bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 text-xs font-bold px-2 py-1 rounded-full flex-shrink-0 mt-0.5 min-w-[24px] text-center">
                         {idx + 1}
@@ -235,7 +264,7 @@ export const MealPlans: React.FC<MealPlansProps> = ({ language }) => {
                 </h5>
                 <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-3 border border-yellow-200 dark:border-yellow-800">
                   <ul className="text-sm text-yellow-800 dark:text-yellow-300 space-y-1">
-                    {meal.tips.map((tip, idx) => (
+                    {meal.tips.map((tip: string, idx: number) => (
                       <li key={idx} className="flex items-start space-x-2 rtl:space-x-reverse">
                         <Star className="h-3 w-3 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-1" />
                         <span>{tip}</span>

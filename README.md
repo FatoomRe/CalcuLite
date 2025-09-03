@@ -120,7 +120,6 @@ src/
 │   ├── MacroChart.tsx       # Visual macro distribution chart
 │   ├── WorkoutPlan.tsx      # Workout planning interface
 │   ├── ExerciseCard.tsx     # Individual exercise display card
-│   ├── MealPlans.tsx        # Meal planning suggestions
 │   ├── SplashScreen.tsx     # Loading/welcome screen
 │   └── ui/                  # Reusable UI components
 │       ├── Button.tsx
@@ -129,8 +128,7 @@ src/
 │       └── index.ts
 ├── data/                    # Static data and translations
 │   ├── translations.ts      # EN/AR text translations
-│   ├── workoutPlans.ts     # Exercise routines and plans
-│   └── mealPlans.ts        # Nutrition and meal suggestions
+│   └── workoutPlans.ts     # Exercise routines and plans
 ├── hooks/                   # Custom React hooks
 │   ├── useLanguage.ts      # Language switching logic
 │   └── useTheme.ts         # Theme management
@@ -306,7 +304,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - [ ] Mobile app version (React Native)
 - [ ] User accounts and data sync
-- [ ] Advanced meal planning
 - [ ] Integration with fitness trackers
 - [ ] Multiple language support beyond EN/AR
 - [ ] Nutrition database integration

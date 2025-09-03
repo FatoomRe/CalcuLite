@@ -55,13 +55,6 @@ export const translations = {
     legs2: "Legs (Hamstrings & Glutes)",
     pull: "Pull (Back & Biceps)",
     
-    // Meal Plans
-    mealPlan: "Suggested Meal Plans",
-    breakfast: "Breakfast",
-    lunch: "Lunch",
-    dinner: "Dinner",
-    snacks: "Snacks",
-    
     // Actions
     downloadPDF: "Download PDF Plan",
     print: "Print Plan",
@@ -127,13 +120,6 @@ export const translations = {
     push: "الدفع (صدر، أكتاف، ترايسبس)",
     legs2: "الأرجل (الفخذ الخلفي والمؤخرة)",
     pull: "السحب (ظهر وبايسبس)",
-    
-    // Meal Plans
-    mealPlan: "خطط الوجبات المقترحة",
-    breakfast: "الفطور",
-    lunch: "الغداء",
-    dinner: "العشاء",
-    snacks: "الوجبات الخفيفة",
     
     // Actions
     downloadPDF: "تحميل الخطة PDF",
