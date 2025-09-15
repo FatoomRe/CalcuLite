@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
 import { Calculator } from 'lucide-react';
-import { UserData, FormData, Language } from '../types';
+import React, { useState } from 'react';
 import { translations } from '../data/translations';
+import { FormData, Language, UserData } from '../types';
 
 interface CalculatorFormProps {
   language: Language;
@@ -20,6 +20,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
     weight: '',
     activityLevel: 'moderate',
     goal: 'build',
+    macroDistribution: '20-40-40',
   });
 
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
@@ -54,6 +55,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
         weight: parseInt(formData.weight),
         activityLevel: formData.activityLevel,
         goal: formData.goal,
+        macroDistribution: formData.macroDistribution,
       };
       onCalculate(userData);
     }
@@ -220,6 +222,41 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
                 }`}
               >
                 <div className="font-medium text-sm">{t[goalType]}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Macro Distribution */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+            {t.macroDistribution}
+            <span className="block text-xs text-gray-500 dark:text-gray-400 mt-1">
+              {language === 'en' ? 'Choose your preferred macro split' : 'اختر توزيع المغذيات المفضل لديك'}
+            </span>
+          </label>
+          <div className="grid grid-cols-1 gap-3">
+            {(['20-40-40', '20-30-50', '20-50-30'] as const).map((macro) => (
+              <button
+                key={macro}
+                type="button"
+                onClick={() => handleChange('macroDistribution', macro)}
+                className={`p-4 rounded-lg border-2 transition-all text-left ${
+                  formData.macroDistribution === macro
+                    ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
+                    : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
+                }`}
+              >
+                <div className="font-medium text-sm mb-1">
+                  {macro === '20-40-40' && t.macroOption1}
+                  {macro === '20-30-50' && t.macroOption2}
+                  {macro === '20-50-30' && t.macroOption3}
+                </div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">
+                  {macro === '20-40-40' && (language === 'en' ? '20% Fat • 40% Protein • 40% Carbs' : '20% دهون • 40% بروتين • 40% كربوهيدرات')}
+                  {macro === '20-30-50' && (language === 'en' ? '20% Fat • 30% Protein • 50% Carbs' : '20% دهون • 30% بروتين • 50% كربوهيدرات')}
+                  {macro === '20-50-30' && (language === 'en' ? '20% Fat • 50% Protein • 30% Carbs' : '20% دهون • 50% بروتين • 30% كربوهيدرات')}
+                </div>
               </button>
             ))}
           </div>

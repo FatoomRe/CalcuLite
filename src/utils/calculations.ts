@@ -1,7 +1,7 @@
 import { MacroResults, UserData } from '../types';
 
 export const calculateMacros = (userData: UserData): MacroResults => {
-  const { age, gender, height, weight, activityLevel, goal } = userData;
+  const { age, gender, height, weight, activityLevel, goal, macroDistribution } = userData;
 
   // Step 1: Calculate BMR using Mifflin-St Jeor formula (exact implementation)
   let bmr: number;
@@ -27,7 +27,6 @@ export const calculateMacros = (userData: UserData): MacroResults => {
   // Lose Fat + Build Muscle: Goal TDEE = TDEE - 500
   // Cut (Lose Fat): Goal TDEE = TDEE - 750
   // Maintain Weight: Goal TDEE = TDEE
-  // Body Recomposition: Goal TDEE = TDEE - 200
   let goalTdee: number;
   if (goal === 'build') {
     goalTdee = tdee + 500; // +500 kcal for muscle gain
@@ -35,40 +34,86 @@ export const calculateMacros = (userData: UserData): MacroResults => {
     goalTdee = tdee - 500; // -500 kcal for fat loss + muscle gain
   } else if (goal === 'cut') {
     goalTdee = tdee - 750; // -750 kcal for aggressive fat loss
-  } else if (goal === 'maintain') {
+  } else { // maintain
     goalTdee = tdee; // Maintenance calories
-  } else { // recomp
-    goalTdee = tdee - 200; // -200 kcal for body recomposition
   }
 
-  // Step 4: Calculate Protein Needs
-  // Protein (g) = weight in kg × 1.6
-  const proteinGrams = weight * 1.6;
-  // Protein calories = Protein (g) × 4
-  const proteinCalories = proteinGrams * 4;
+  // Step 4: Calculate Macro Distribution
+  let proteinCalories: number;
+  let fatCalories: number;
+  let carbCalories: number;
+  let proteinGrams: number;
+  let fatGrams: number;
+  let carbGrams: number;
 
-  // Step 5: Calculate Fat Needs
-  // Fat needs vary by goal
-  let fatPercentage: number;
-  if (goal === 'build') {
-    fatPercentage = 0.30; // 30% for muscle building
-  } else if (goal === 'cut') {
-    fatPercentage = 0.25; // 25% for aggressive fat loss
-  } else if (goal === 'maintain') {
-    fatPercentage = 0.30; // 30% for maintenance
-  } else { // lose
-    fatPercentage = 0.35; // 35% for fat loss + muscle gain
+  // Check if user selected custom macro distribution
+  if (macroDistribution) {
+    // Custom macro distribution selected
+    let proteinPercent: number;
+    let fatPercent: number;
+    let carbPercent: number;
+
+    switch (macroDistribution) {
+      case '20-40-40':
+        fatPercent = 0.20;
+        proteinPercent = 0.40;
+        carbPercent = 0.40;
+        break;
+      case '20-30-50':
+        fatPercent = 0.20;
+        proteinPercent = 0.30;
+        carbPercent = 0.50;
+        break;
+      case '20-50-30':
+        fatPercent = 0.20;
+        proteinPercent = 0.50;
+        carbPercent = 0.30;
+        break;
+      default:
+        // Default to 20-40-40
+        fatPercent = 0.20;
+        proteinPercent = 0.40;
+        carbPercent = 0.40;
+    }
+
+    proteinCalories = goalTdee * proteinPercent;
+    fatCalories = goalTdee * fatPercent;
+    carbCalories = goalTdee * carbPercent;
+    
+    proteinGrams = proteinCalories / 4;
+    fatGrams = fatCalories / 9;
+    carbGrams = carbCalories / 4;
+  } else {
+    // Standard calculation for goals without custom macro distribution
+    // Step 4: Calculate Protein Needs
+    // Protein (g) = weight in kg × 1.6
+    proteinGrams = weight * 1.6;
+    // Protein calories = Protein (g) × 4
+    proteinCalories = proteinGrams * 4;
+
+    // Step 5: Calculate Fat Needs
+    // Fat needs vary by goal
+    let fatPercentage: number;
+    if (goal === 'build') {
+      fatPercentage = 0.30; // 30% for muscle building
+    } else if (goal === 'cut') {
+      fatPercentage = 0.25; // 25% for aggressive fat loss
+    } else if (goal === 'maintain') {
+      fatPercentage = 0.30; // 30% for maintenance
+    } else { // lose
+      fatPercentage = 0.35; // 35% for fat loss + muscle gain
+    }
+    
+    fatCalories = goalTdee * fatPercentage;
+    // Fat (g) = Fat calories ÷ 9
+    fatGrams = fatCalories / 9;
+
+    // Step 6: Calculate Carbohydrate Needs
+    // Carb calories = Goal TDEE – (Protein calories + Fat calories)
+    carbCalories = goalTdee - (proteinCalories + fatCalories);
+    // Carbs (g) = Carb calories ÷ 4
+    carbGrams = carbCalories / 4;
   }
-  
-  const fatCalories = goalTdee * fatPercentage;
-  // Fat (g) = Fat calories ÷ 9
-  const fatGrams = fatCalories / 9;
-
-  // Step 6: Calculate Carbohydrate Needs
-  // Carb calories = Goal TDEE – (Protein calories + Fat calories)
-  const carbCalories = goalTdee - (proteinCalories + fatCalories);
-  // Carbs (g) = Carb calories ÷ 4
-  const carbGrams = carbCalories / 4;
 
   // Step 7: Calculate Water Needs
   const waterIntake = calculateWaterIntake(userData);

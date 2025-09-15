@@ -4,7 +4,8 @@ export interface UserData {
   height: number;
   weight: number;
   activityLevel: 'sedentary' | 'moderate' | 'active';
-  goal: 'build' | 'lose' | 'cut' | 'maintain' | 'recomp';
+  goal: 'build' | 'lose' | 'cut' | 'maintain';
+  macroDistribution?: '20-40-40' | '20-30-50' | '20-50-30';
 }
 
 export interface FormData {
@@ -13,7 +14,8 @@ export interface FormData {
   height: string;
   weight: string;
   activityLevel: 'sedentary' | 'moderate' | 'active';
-  goal: 'build' | 'lose' | 'cut' | 'maintain' | 'recomp';
+  goal: 'build' | 'lose' | 'cut' | 'maintain';
+  macroDistribution: '20-40-40' | '20-30-50' | '20-50-30';
 }
 
 export interface MacroResults {

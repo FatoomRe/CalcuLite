@@ -21,6 +21,10 @@ export const translations = {
     lose: "Lose Fat & Build Muscle",
     cut: "Cut (Lose Fat)",
     maintain: "Maintain Weight",
+    macroDistribution: "Macro Distribution",
+    macroOption1: "Balanced High Protein (20% Fat - 40% Protein - 40% Carbs)",
+    macroOption2: "Moderate Protein (20% Fat - 30% Protein - 50% Carbs)",
+    macroOption3: "Very High Protein (20% Fat - 50% Protein - 30% Carbs)",
     calculate: "Calculate My Plan",
     
     // Results
@@ -55,6 +59,18 @@ export const translations = {
     legs2: "Legs (Hamstrings & Glutes)",
     pull: "Pull (Back & Biceps)",
     
+    // High Protein Foods
+    highProteinFoods: "High Protein Food Sources",
+    proteinTip: "To reach your daily protein goal, include these foods:",
+    chickenBreast: "Chicken Breast (31g per 100g)",
+    greekYogurt: "Greek Yogurt (20g per cup)",
+    eggs: "Eggs (6g per egg)",
+    tuna: "Tuna (25g per 100g)",
+    cottageCheese: "Cottage Cheese (24g per cup)",
+    salmon: "Salmon (25g per 100g)",
+    leanBeef: "Lean Beef (26g per 100g)",
+    proteinPowder: "Protein Powder (25g per scoop)",
+    
     // Actions
     downloadPDF: "Download PDF Plan",
     print: "Print Plan",
@@ -87,6 +103,10 @@ export const translations = {
     lose: "حرق الدهون وبناء العضلات",
     cut: "التنشيف (حرق الدهون)",
     maintain: "الحفاظ على الوزن",
+    macroDistribution: "توزيع المغذيات الكبيرة",
+    macroOption1: "بروتين عالي متوازن (20% دهون - 40% بروتين - 40% كربوهيدرات)",
+    macroOption2: "بروتين معتدل (20% دهون - 30% بروتين - 50% كربوهيدرات)",
+    macroOption3: "بروتين عالي جداً (20% دهون - 50% بروتين - 30% كربوهيدرات)",
     calculate: "احسب خطتي",
     
     // Results
@@ -120,6 +140,18 @@ export const translations = {
     push: "الدفع (صدر، أكتاف، ترايسبس)",
     legs2: "الأرجل (الفخذ الخلفي والمؤخرة)",
     pull: "السحب (ظهر وبايسبس)",
+    
+    // High Protein Foods
+    highProteinFoods: "مصادر البروتين العالي",
+    proteinTip: "للوصول لهدف البروتين اليومي، اشمل هذه الأطعمة:",
+    chickenBreast: "صدر الدجاج (31 جرام لكل 100 جرام)",
+    greekYogurt: "اللبن اليوناني (20 جرام لكل كوب)",
+    eggs: "البيض (6 جرام لكل بيضة)",
+    tuna: "التونة (25 جرام لكل 100 جرام)",
+    cottageCheese: "الجبن القريش (24 جرام لكل كوب)",
+    salmon: "السلمون (25 جرام لكل 100 جرام)",
+    leanBeef: "اللحم البقري قليل الدهون (26 جرام لكل 100 جرام)",
+    proteinPowder: "مسحوق البروتين (25 جرام لكل مكيال)",
     
     // Actions
     downloadPDF: "تحميل الخطة PDF",
