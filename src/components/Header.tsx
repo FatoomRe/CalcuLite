@@ -1,7 +1,7 @@
+import { Apple, Moon, Sun } from 'lucide-react';
 import React from 'react';
-import { Moon, Sun, Globe } from 'lucide-react';
-import { Language, Theme } from '../types';
 import { translations } from '../data/translations';
+import { Language, Theme } from '../types';
 
 interface HeaderProps {
   language: Language;
@@ -24,7 +24,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex justify-between items-center py-6">
           <div className="flex items-center space-x-3 rtl:space-x-reverse">
             <div className="bg-gradient-to-r from-primary-600 to-accent-600 p-2 rounded-lg shadow-lg">
-              <Globe className="h-6 w-6 text-white" />
+              <Apple className="h-6 w-6 text-white" />
             </div>
             <div>
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
