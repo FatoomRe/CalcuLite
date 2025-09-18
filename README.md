@@ -33,12 +33,19 @@ A modern, bilingual web application for calculating daily calorie needs, macro b
 
 ## ✨ Features
 
-### 🧮 Calorie & Macro Calculator
-- **BMR Calculation**: Basal Metabolic Rate using proven formulas
-- **TDEE Calculation**: Total Daily Energy Expenditure based on activity level
-- **Macro Breakdown**: Personalized protein, carbs, and fat distribution
-- **Goal-oriented**: Support for muscle building and fat loss goals
-- **💧 Water Intake Calculator**: Daily hydration needs based on gender, age, weight, and activity level
+### 🧮 Advanced Calorie & Macro Calculator
+- **Multiple BMR Formulas**: Choose between Harris-Benedict (1919), Mifflin-St Jeor (1990), or Katch-McArdle (2005)
+- **Unit System Support**: Metric (cm/kg) and Imperial (inches/lbs) measurement systems
+- **Enhanced Activity Levels**: 5 detailed activity levels from "Very Low" to "Very Intensive"
+- **Precise Weight Goals**: Specific weight change targets (-1kg to +1kg per week with 0.25kg increments)
+- **Professional Macro Distributions**: 
+  - Balanced (40% Protein, 20% Fat, 40% Carbs)
+  - Cutting/Fat Loss (50% Protein, 20% Fat, 30% Carbs)
+  - Bulking/Muscle Gain (30% Protein, 20% Fat, 50% Carbs)
+  - Custom Distribution (user-defined percentages)
+- **Body Fat Percentage**: Optional input for more accurate Katch-McArdle calculations
+- **Pregnancy & Breastfeeding Support**: Specialized calorie adjustments for expecting and nursing mothers
+- **💧 Enhanced Water Calculator**: Improved hydration recommendations based on gender, age, weight, activity level, and unit system
 
 ### 🏋️ Workout Planning
 - **Multiple Split Programs**: 3-day, 4-day, 5-day, and 6-day workout routines
@@ -178,18 +185,50 @@ colors: {
 
 ## 🧮 Calculation Formulas
 
-### BMR (Basal Metabolic Rate)
-- **Men**: BMR = 88.362 + (13.397 × weight) + (4.799 × height) - (5.677 × age)
-- **Women**: BMR = 447.593 + (9.247 × weight) + (3.098 × height) - (4.330 × age)
+### BMR (Basal Metabolic Rate) Formulas
+
+#### Harris-Benedict Formula (1919)
+- **Men**: BMR = 88.362 + (13.397 × weight in kg) + (4.799 × height in cm) - (5.677 × age)
+- **Women**: BMR = 447.593 + (9.247 × weight in kg) + (3.098 × height in cm) - (4.330 × age)
+
+#### Mifflin-St Jeor Formula (1990) - Default
+- **Men**: BMR = (10 × weight in kg) + (6.25 × height in cm) - (5 × age) + 5
+- **Women**: BMR = (10 × weight in kg) + (6.25 × height in cm) - (5 × age) - 161
+
+#### Katch-McArdle Formula (2005)
+- **All Genders**: BMR = 370 + (21.6 × lean body mass in kg)
+- **Lean Body Mass**: weight × (1 - body fat percentage / 100)
 
 ### TDEE (Total Daily Energy Expenditure)
-- **Sedentary**: BMR × 1.2
-- **Moderately Active**: BMR × 1.55
-- **Highly Active**: BMR × 1.9
+- **Very Low Activity**: BMR × 1.2 (desk job, no exercise)
+- **Low Activity**: BMR × 1.375 (light exercise 1-3 days/week)
+- **Moderate Activity**: BMR × 1.55 (moderate exercise 3-5 days/week)
+- **High Activity**: BMR × 1.725 (hard exercise 6-7 days/week)
+- **Very High Activity**: BMR × 1.9 (daily exercise + physical job)
 
-### Macro Distribution
-- **Muscle Building**: 30% Protein, 40% Carbs, 30% Fat
-- **Fat Loss**: 35% Protein, 30% Carbs, 35% Fat
+### Weight Goal Calculations
+- **Slow Weight Loss (-0.25 kg/week)**: TDEE - 275 calories
+- **Moderate Weight Loss (-0.5 kg/week)**: TDEE - 550 calories
+- **Fast Weight Loss (-1 kg/week)**: TDEE - 1100 calories
+- **Slow Weight Gain (+0.25 kg/week)**: TDEE + 275 calories
+- **Moderate Weight Gain (+0.5 kg/week)**: TDEE + 550 calories
+- **Fast Weight Gain (+1 kg/week)**: TDEE + 1100 calories
+
+### Professional Macro Distributions
+- **Balanced**: 40% Protein, 20% Fat, 40% Carbs
+- **Cutting/Fat Loss**: 50% Protein, 20% Fat, 30% Carbs
+- **Bulking/Muscle Gain**: 30% Protein, 20% Fat, 50% Carbs
+- **Custom**: User-defined percentages (must total 100%)
+
+### Special Adjustments
+- **Pregnancy**: +300 calories to BMR (2nd & 3rd trimester)
+- **Breastfeeding**: +500 calories to BMR
+
+### Water Intake Formula
+- **Base**: 35ml per kg body weight
+- **Gender Adjustment**: Men +10% (higher muscle mass)
+- **Age Adjustment**: 50+ years +5%, 65+ years +10%
+- **Activity Adjustment**: Very Low +0%, Low +10%, Moderate +20%, High +30%, Very High +40%
 
 ### 💧 Water Intake Calculation
 **Base Formula**: 35ml per kg of body weight

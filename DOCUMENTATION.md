@@ -43,7 +43,7 @@ Development:
 ### Core Components
 
 #### `CalculatorForm.tsx`
-**Purpose**: Main form for user input (age, weight, height, etc.)
+**Purpose**: Main form for user input with professional features
 
 **Props**:
 ```typescript
@@ -53,22 +53,43 @@ interface CalculatorFormProps {
 }
 ```
 
-**State Management**:
+**Enhanced State Management**:
 ```typescript
-const [formData, setFormData] = useState<UserData>({
+const [formData, setFormData] = useState<FormData>({
   age: '',
   gender: 'male',
   height: '',
   weight: '',
+  unitSystem: 'metric',
+  pregnancyStatus: 'none',
+  bodyFatPercentage: '',
   activityLevel: 'moderate',
-  goal: 'build'
+  goal: 'maintain',
+  bmrFormula: 'mifflinStJeor',
+  macroDistribution: 'balanced',
+  customMacros: {
+    protein: '',
+    fat: '',
+    carbs: ''
+  }
 });
 ```
 
-**Validation Rules**:
+**Enhanced Validation Rules**:
 - Age: 15-100 years
-- Height: 120-250 cm
-- Weight: 30-300 kg
+- Height: 120-250 cm (metric) / 47-98 inches (imperial)
+- Weight: 30-300 kg (metric) / 66-661 lbs (imperial)
+- Body Fat: 5-50% (optional)
+- Custom Macros: Must total 100%
+
+**New Features**:
+- Unit system selection (metric/imperial)
+- Pregnancy/breastfeeding status for females
+- Body fat percentage input
+- Multiple BMR formula selection
+- Enhanced activity levels (5 options)
+- Professional macro distributions
+- Custom macro percentage inputs
 
 #### `ResultsDisplay.tsx`
 **Purpose**: Shows calculated results with export options

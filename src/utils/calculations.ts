@@ -1,41 +1,95 @@
 import { MacroResults, UserData } from '../types';
 
 export const calculateMacros = (userData: UserData): MacroResults => {
-  const { age, gender, height, weight, activityLevel, goal, macroDistribution } = userData;
+  const { age, gender, height, weight, unitSystem, pregnancyStatus, bodyFatPercentage, activityLevel, goal, bmrFormula, macroDistribution, customMacros } = userData;
 
-  // Step 1: Calculate BMR using Mifflin-St Jeor formula (exact implementation)
-  let bmr: number;
-  if (gender === 'male') {
-    // Men: BMR = (10 × weight in kg) + (6.25 × height in cm) – (5 × age in years) + 5
-    bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
-  } else {
-    // Women: BMR = (10 × weight in kg) + (6.25 × height in cm) – (5 × age in years) – 161
-    bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+  // Convert imperial units to metric if needed
+  let heightCm = height;
+  let weightKg = weight;
+  
+  if (unitSystem === 'imperial') {
+    // Convert inches to cm
+    heightCm = height * 2.54;
+    // Convert pounds to kg
+    weightKg = weight * 0.453592;
   }
 
-  // Step 2: Calculate TDEE (Total Daily Energy Expenditure)
-  // TDEE = BMR × PAL (Physical Activity Level)
+  // Step 1: Calculate BMR using selected formula
+  let bmr: number;
+  
+  if (bmrFormula === 'harrisBenedict') {
+    // Harris-Benedict Formula (1919)
+    if (gender === 'male') {
+      bmr = 88.362 + (13.397 * weightKg) + (4.799 * heightCm) - (5.677 * age);
+    } else {
+      bmr = 447.593 + (9.247 * weightKg) + (3.098 * heightCm) - (4.330 * age);
+    }
+  } else if (bmrFormula === 'katchMcArdle') {
+    // Katch-McArdle Formula (2005) - requires body fat percentage
+    if (bodyFatPercentage && bodyFatPercentage > 0) {
+      const leanBodyMass = weightKg * (1 - bodyFatPercentage / 100);
+      bmr = 370 + (21.6 * leanBodyMass);
+    } else {
+      // Fallback to Mifflin-St Jeor if no body fat percentage provided
+      bmr = gender === 'male' 
+        ? (10 * weightKg) + (6.25 * heightCm) - (5 * age) + 5
+        : (10 * weightKg) + (6.25 * heightCm) - (5 * age) - 161;
+    }
+  } else {
+    // Mifflin-St Jeor Formula (1990) - Default
+    if (gender === 'male') {
+      bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) + 5;
+    } else {
+      bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age) - 161;
+    }
+  }
+
+  // Pregnancy and breastfeeding adjustments for females
+  if (gender === 'female' && pregnancyStatus) {
+    if (pregnancyStatus === 'pregnant') {
+      // Add 300 calories for pregnancy (second and third trimester)
+      bmr += 300;
+    } else if (pregnancyStatus === 'breastfeeding') {
+      // Add 500 calories for breastfeeding
+      bmr += 500;
+    }
+  }
+
+  // Step 2: Calculate TDEE with enhanced activity levels
   const activityMultipliers = {
-    sedentary: 1.4,    // Sedentary
-    moderate: 1.6,     // Moderately Active  
-    active: 1.8        // Highly Active
+    veryLow: 1.2,    // Very sedentary - desk job, no exercise
+    low: 1.375,      // Lightly active - light exercise 1-3 days/week
+    moderate: 1.55,  // Moderately active - moderate exercise 3-5 days/week
+    high: 1.725,     // Very active - hard exercise 6-7 days/week
+    veryHigh: 1.9    // Extremely active - very hard exercise, physical job
   };
   const tdee = bmr * activityMultipliers[activityLevel];
 
-  // Step 3: Calculate Goal TDEE
-  // Build Muscle: Goal TDEE = TDEE + 500
-  // Lose Fat + Build Muscle: Goal TDEE = TDEE - 500
-  // Cut (Lose Fat): Goal TDEE = TDEE - 750
-  // Maintain Weight: Goal TDEE = TDEE
+  // Step 3: Calculate Goal TDEE based on specific weight goals
   let goalTdee: number;
-  if (goal === 'build') {
-    goalTdee = tdee + 500; // +500 kcal for muscle gain
-  } else if (goal === 'lose') {
-    goalTdee = tdee - 500; // -500 kcal for fat loss + muscle gain
-  } else if (goal === 'cut') {
-    goalTdee = tdee - 750; // -750 kcal for aggressive fat loss
-  } else { // maintain
-    goalTdee = tdee; // Maintenance calories
+  const caloriesPerKgFat = 7700; // Approximate calories in 1 kg of fat
+  
+  switch (goal) {
+    case 'slowWeightLoss025':
+      goalTdee = tdee - (0.25 * caloriesPerKgFat / 7); // -275 calories/day
+      break;
+    case 'slowWeightLoss05':
+      goalTdee = tdee - (0.5 * caloriesPerKgFat / 7); // -550 calories/day
+      break;
+    case 'fastWeightLoss1':
+      goalTdee = tdee - (1 * caloriesPerKgFat / 7); // -1100 calories/day
+      break;
+    case 'slowWeightGain025':
+      goalTdee = tdee + (0.25 * caloriesPerKgFat / 7); // +275 calories/day
+      break;
+    case 'moderateWeightGain05':
+      goalTdee = tdee + (0.5 * caloriesPerKgFat / 7); // +550 calories/day
+      break;
+    case 'fastWeightGain1':
+      goalTdee = tdee + (1 * caloriesPerKgFat / 7); // +1100 calories/day
+      break;
+    default: // maintain
+      goalTdee = tdee;
   }
 
   // Step 4: Calculate Macro Distribution
@@ -46,33 +100,42 @@ export const calculateMacros = (userData: UserData): MacroResults => {
   let fatGrams: number;
   let carbGrams: number;
 
-  // Check if user selected custom macro distribution
-  if (macroDistribution) {
-    // Custom macro distribution selected
+  if (macroDistribution === 'custom' && customMacros) {
+    // Custom macro distribution
+    const proteinPercent = customMacros.protein / 100;
+    const fatPercent = customMacros.fat / 100;
+    const carbPercent = customMacros.carbs / 100;
+
+    proteinCalories = goalTdee * proteinPercent;
+    fatCalories = goalTdee * fatPercent;
+    carbCalories = goalTdee * carbPercent;
+    
+    proteinGrams = proteinCalories / 4;
+    fatGrams = fatCalories / 9;
+    carbGrams = carbCalories / 4;
+  } else {
+    // Predefined macro distributions
     let proteinPercent: number;
     let fatPercent: number;
     let carbPercent: number;
 
     switch (macroDistribution) {
-      case '20-40-40':
-        fatPercent = 0.20;
-        proteinPercent = 0.40;
-        carbPercent = 0.40;
-        break;
-      case '20-30-50':
-        fatPercent = 0.20;
-        proteinPercent = 0.30;
-        carbPercent = 0.50;
-        break;
-      case '20-50-30':
-        fatPercent = 0.20;
+      case 'cutting':
+        // For cutting/fat loss: 50% protein, 20% fat, 30% carbs
         proteinPercent = 0.50;
+        fatPercent = 0.20;
         carbPercent = 0.30;
         break;
-      default:
-        // Default to 20-40-40
+      case 'bulking':
+        // For bulking/muscle gain: 30% protein, 20% fat, 50% carbs
+        proteinPercent = 0.30;
         fatPercent = 0.20;
+        carbPercent = 0.50;
+        break;
+      default: // balanced
+        // Balanced: 40% protein, 20% fat, 40% carbs
         proteinPercent = 0.40;
+        fatPercent = 0.20;
         carbPercent = 0.40;
     }
 
@@ -83,39 +146,9 @@ export const calculateMacros = (userData: UserData): MacroResults => {
     proteinGrams = proteinCalories / 4;
     fatGrams = fatCalories / 9;
     carbGrams = carbCalories / 4;
-  } else {
-    // Standard calculation for goals without custom macro distribution
-    // Step 4: Calculate Protein Needs
-    // Protein (g) = weight in kg × 1.6
-    proteinGrams = weight * 1.6;
-    // Protein calories = Protein (g) × 4
-    proteinCalories = proteinGrams * 4;
-
-    // Step 5: Calculate Fat Needs
-    // Fat needs vary by goal
-    let fatPercentage: number;
-    if (goal === 'build') {
-      fatPercentage = 0.30; // 30% for muscle building
-    } else if (goal === 'cut') {
-      fatPercentage = 0.25; // 25% for aggressive fat loss
-    } else if (goal === 'maintain') {
-      fatPercentage = 0.30; // 30% for maintenance
-    } else { // lose
-      fatPercentage = 0.35; // 35% for fat loss + muscle gain
-    }
-    
-    fatCalories = goalTdee * fatPercentage;
-    // Fat (g) = Fat calories ÷ 9
-    fatGrams = fatCalories / 9;
-
-    // Step 6: Calculate Carbohydrate Needs
-    // Carb calories = Goal TDEE – (Protein calories + Fat calories)
-    carbCalories = goalTdee - (proteinCalories + fatCalories);
-    // Carbs (g) = Carb calories ÷ 4
-    carbGrams = carbCalories / 4;
   }
 
-  // Step 7: Calculate Water Needs
+  // Step 5: Calculate Water Needs
   const waterIntake = calculateWaterIntake(userData);
 
   return {
@@ -142,11 +175,17 @@ export const calculateMacros = (userData: UserData): MacroResults => {
 };
 
 export const calculateWaterIntake = (userData: UserData): { liters: number; milliliters: number } => {
-  const { age, gender, weight, activityLevel } = userData;
+  const { age, gender, weight, unitSystem, activityLevel } = userData;
+
+  // Convert weight to kg if needed
+  let weightKg = weight;
+  if (unitSystem === 'imperial') {
+    weightKg = weight * 0.453592; // Convert pounds to kg
+  }
 
   // Base water intake calculation
   // General formula: 35ml per kg of body weight
-  let baseWaterMl = weight * 35;
+  let baseWaterMl = weightKg * 35;
 
   // Gender adjustments
   if (gender === 'male') {
@@ -168,9 +207,11 @@ export const calculateWaterIntake = (userData: UserData): { liters: number; mill
 
   // Activity level adjustments
   const activityMultipliers = {
-    sedentary: 1.0,     // No additional water needed
-    moderate: 1.15,     // +15% for moderate activity
-    active: 1.3         // +30% for high activity
+    veryLow: 1.0,     // No additional water needed
+    low: 1.1,         // +10% for light activity
+    moderate: 1.2,    // +20% for moderate activity
+    high: 1.3,        // +30% for high activity
+    veryHigh: 1.4     // +40% for very high activity
   };
   
   baseWaterMl *= activityMultipliers[activityLevel];

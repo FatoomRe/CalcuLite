@@ -3,9 +3,18 @@ export interface UserData {
   gender: 'male' | 'female';
   height: number;
   weight: number;
-  activityLevel: 'sedentary' | 'moderate' | 'active';
-  goal: 'build' | 'lose' | 'cut' | 'maintain';
-  macroDistribution?: '20-40-40' | '20-30-50' | '20-50-30';
+  unitSystem: 'metric' | 'imperial';
+  pregnancyStatus?: 'none' | 'pregnant' | 'breastfeeding';
+  bodyFatPercentage?: number;
+  activityLevel: 'veryLow' | 'low' | 'moderate' | 'high' | 'veryHigh';
+  goal: 'maintain' | 'slowWeightLoss025' | 'slowWeightLoss05' | 'fastWeightLoss1' | 'slowWeightGain025' | 'moderateWeightGain05' | 'fastWeightGain1';
+  bmrFormula: 'harrisBenedict' | 'mifflinStJeor' | 'katchMcArdle';
+  macroDistribution?: 'balanced' | 'cutting' | 'bulking' | 'custom';
+  customMacros?: {
+    protein: number;
+    fat: number;
+    carbs: number;
+  };
 }
 
 export interface FormData {
@@ -13,9 +22,18 @@ export interface FormData {
   gender: 'male' | 'female';
   height: string;
   weight: string;
-  activityLevel: 'sedentary' | 'moderate' | 'active';
-  goal: 'build' | 'lose' | 'cut' | 'maintain';
-  macroDistribution: '20-40-40' | '20-30-50' | '20-50-30';
+  unitSystem: 'metric' | 'imperial';
+  pregnancyStatus: 'none' | 'pregnant' | 'breastfeeding';
+  bodyFatPercentage: string;
+  activityLevel: 'veryLow' | 'low' | 'moderate' | 'high' | 'veryHigh';
+  goal: 'maintain' | 'slowWeightLoss025' | 'slowWeightLoss05' | 'fastWeightLoss1' | 'slowWeightGain025' | 'moderateWeightGain05' | 'fastWeightGain1';
+  bmrFormula: 'harrisBenedict' | 'mifflinStJeor' | 'katchMcArdle';
+  macroDistribution: 'balanced' | 'cutting' | 'bulking' | 'custom';
+  customMacros: {
+    protein: string;
+    fat: string;
+    carbs: string;
+  };
 }
 
 export interface MacroResults {
