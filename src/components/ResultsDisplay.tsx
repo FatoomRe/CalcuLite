@@ -1,4 +1,4 @@
-import { Download, Droplets, Printer, Target, TrendingUp, Zap } from 'lucide-react';
+import { Download, Droplets, Heart, Printer, Target, TrendingUp, Zap } from 'lucide-react';
 import React from 'react';
 import { translations } from '../data/translations';
 import { Language, MacroResults } from '../types';
@@ -146,6 +146,46 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               {results.fat.calories} {t.calories} ({results.fat.percentage}%)
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Heart Rate Zones Card */}
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 flex-1 flex flex-col">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg">
+            <Heart className="h-6 w-6 text-red-600 dark:text-red-400" />
+          </div>
+          <div>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+              {t.heartRateZones}
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {t.maxHeartRate}: {results.heartRate.maxHeartRate} {t.bpm}
+            </p>
+          </div>
+        </div>
+        
+        <div className="space-y-3 flex-1">
+          {results.heartRate.zones.map((zone, index) => (
+            <div key={index} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+              <div className="flex-1">
+                <div className="font-medium text-gray-900 dark:text-white">
+                  {language === 'ar' ? zone.labelAr : zone.label}
+                </div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">
+                  {Math.round(zone.min * 100)}% - {Math.round(zone.max * 100)}% {t.maxHeartRate}
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="font-bold text-red-600 dark:text-red-400">
+                  {zone.minBpm} - {zone.maxBpm}
+                </div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">
+                  {t.bpm}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

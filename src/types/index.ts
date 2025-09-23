@@ -36,6 +36,15 @@ export interface FormData {
   };
 }
 
+export interface HeartRateZone {
+  label: string;
+  labelAr: string;
+  min: number;
+  max: number;
+  minBpm: number;
+  maxBpm: number;
+}
+
 export interface MacroResults {
   bmr: number;
   tdee: number;
@@ -44,6 +53,10 @@ export interface MacroResults {
   fat: { grams: number; calories: number; percentage: number };
   carbs: { grams: number; calories: number; percentage: number };
   water: { liters: number; milliliters: number };
+  heartRate: {
+    maxHeartRate: number;
+    zones: HeartRateZone[];
+  };
 }
 
 export interface Exercise {

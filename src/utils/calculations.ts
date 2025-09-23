@@ -1,4 +1,58 @@
-import { MacroResults, UserData } from '../types';
+import { HeartRateZone, MacroResults, UserData } from '../types';
+
+// Heart rate zones data
+const heartRateZonesData = [
+  { 
+    label: 'Fitness Zone', 
+    labelAr: 'لياقة بدنية', 
+    min: 0.5, 
+    max: 0.6 
+  },
+  { 
+    label: 'Weight Loss Zone', 
+    labelAr: 'خسارة الوزن', 
+    min: 0.5, 
+    max: 0.7 
+  },
+  { 
+    label: 'Endurance Zone', 
+    labelAr: 'زيادة قدرة التحمل', 
+    min: 0.7, 
+    max: 0.8 
+  },
+  { 
+    label: 'Performance Zone', 
+    labelAr: 'اللياقة البدنية الممتازة', 
+    min: 0.8, 
+    max: 0.9 
+  },
+  { 
+    label: 'Competition Zone', 
+    labelAr: 'المنافسات الرياضية', 
+    min: 0.9, 
+    max: 1.0 
+  }
+];
+
+export const calculateHeartRateZones = (age: number): { maxHeartRate: number; zones: HeartRateZone[] } => {
+  // Calculate Maximum Heart Rate using the standard formula: 220 - age
+  const maxHeartRate = 220 - age;
+  
+  // Calculate zones based on percentage of max heart rate
+  const zones: HeartRateZone[] = heartRateZonesData.map(zone => ({
+    label: zone.label,
+    labelAr: zone.labelAr,
+    min: zone.min,
+    max: zone.max,
+    minBpm: Math.round(maxHeartRate * zone.min),
+    maxBpm: Math.round(maxHeartRate * zone.max)
+  }));
+
+  return {
+    maxHeartRate,
+    zones
+  };
+};
 
 export const calculateMacros = (userData: UserData): MacroResults => {
   const { age, gender, height, weight, unitSystem, pregnancyStatus, bodyFatPercentage, activityLevel, goal, bmrFormula, macroDistribution, customMacros } = userData;
@@ -151,6 +205,9 @@ export const calculateMacros = (userData: UserData): MacroResults => {
   // Step 5: Calculate Water Needs
   const waterIntake = calculateWaterIntake(userData);
 
+  // Step 6: Calculate Heart Rate Zones
+  const heartRateData = calculateHeartRateZones(age);
+
   return {
     bmr: Math.round(bmr),
     tdee: Math.round(tdee),
@@ -170,7 +227,8 @@ export const calculateMacros = (userData: UserData): MacroResults => {
       calories: Math.round(carbCalories),
       percentage: Math.round((carbCalories / goalTdee) * 100)
     },
-    water: waterIntake
+    water: waterIntake,
+    heartRate: heartRateData
   };
 };
 

@@ -85,6 +85,12 @@ export const translations = {
     liters: "liters",
     milliliters: "ml",
     
+    // Heart Rate
+    maxHeartRate: "Max Heart Rate",
+    heartRateZones: "Heart Rate Training Zones",
+    bpm: "bpm",
+    targetZone: "Target Zone",
+    
     // Workout Plans
     workoutPlan: "4-Day Split Workout Plan",
     day: "Day",
@@ -206,6 +212,12 @@ export const translations = {
     water: "الماء اليومي المطلوب",
     liters: "لتر",
     milliliters: "مل",
+    
+    // Heart Rate
+    maxHeartRate: "الحد الأقصى لضربات القلب",
+    heartRateZones: "نطاقات التدريب بنبضات القلب",
+    bpm: "نبضة/دقيقة",
+    targetZone: "النطاق المستهدف",
     
     // Workout Plans
     workoutPlan: "خطة التمارين 4 أيام",
