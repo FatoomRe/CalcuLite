@@ -119,7 +119,7 @@ export const translations = {
     
     // Actions
     downloadPDF: "Download PDF Plan",
-    print: "Print Plan",
+    print: "Print Info",
     darkMode: "Dark Mode",
     lightMode: "Light Mode",
     
@@ -247,7 +247,7 @@ export const translations = {
     
     // Actions
     downloadPDF: "تحميل الخطة PDF",
-    print: "طباعة الخطة",
+    print: "طباعة المعلومات",
     darkMode: "الوضع الليلي",
     lightMode: "الوضع النهاري",
     

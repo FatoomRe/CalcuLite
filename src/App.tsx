@@ -102,7 +102,9 @@ function App() {
               </div>
 
               {/* Workout Plan */}
-              <WorkoutPlan language={language} />
+              <div className="no-print no-pdf">
+                <WorkoutPlan language={language} />
+              </div>
             </div>
           )}
         </div>
