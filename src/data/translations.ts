@@ -118,7 +118,7 @@ export const translations = {
     proteinPowder: "Protein Powder (25g per scoop)",
     
     // Actions
-    downloadPDF: "Download PDF Plan",
+    downloadPDF: "Download PDF Report",
     print: "Print Info",
     darkMode: "Dark Mode",
     lightMode: "Light Mode",
@@ -246,7 +246,7 @@ export const translations = {
     proteinPowder: "مسحوق البروتين (25 جرام لكل مكيال)",
     
     // Actions
-    downloadPDF: "تحميل الخطة PDF",
+    downloadPDF: "تحميل التقرير PDF",
     print: "طباعة المعلومات",
     darkMode: "الوضع الليلي",
     lightMode: "الوضع النهاري",

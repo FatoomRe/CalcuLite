@@ -10,14 +10,20 @@ export const generatePDF = async (_results: MacroResults, language: Language) =>
   if (!resultsEl) return;
 
   // Render the element to canvas at high scale for crisp output
-  // Clone node to strip no-print elements visually if needed
+  // Exclude elements with no-pdf class from PDF generation
   const canvas = await html2canvas(resultsEl, {
     scale: 2, // increase for sharper PDF; 2 is a good balance
     useCORS: true,
     backgroundColor: '#ffffff',
     logging: false,
     windowWidth: document.documentElement.scrollWidth,
-    ignoreElements: (el) => !!(el as HTMLElement).dataset?.html2canvasIgnore,
+    ignoreElements: (el) => {
+      // Ignore elements with data-html2canvas-ignore or no-pdf class
+      const element = el as HTMLElement;
+      return !!(element.dataset?.html2canvasIgnore || 
+               element.classList?.contains('no-pdf') ||
+               element.closest('.no-pdf'));
+    },
   });
 
   const imgData = canvas.toDataURL('image/png');
@@ -51,7 +57,7 @@ export const generatePDF = async (_results: MacroResults, language: Language) =>
   position -= (pageHeight - margin * 2);
   }
 
-  const filename = language === 'ar' ? 'خطة-السعرات.pdf' : 'calories-plan.pdf';
+  const filename = language === 'ar' ? 'تقرير-السعرات.pdf' : 'calorie-report.pdf';
   pdf.save(filename);
 };
 
@@ -66,6 +72,13 @@ export const previewPDF = async (_results: MacroResults) => {
     backgroundColor: '#ffffff',
     logging: false,
     windowWidth: document.documentElement.scrollWidth,
+    ignoreElements: (el) => {
+      // Ignore elements with data-html2canvas-ignore or no-pdf class
+      const element = el as HTMLElement;
+      return !!(element.dataset?.html2canvasIgnore || 
+               element.classList?.contains('no-pdf') ||
+               element.closest('.no-pdf'));
+    },
   });
 
   const imgData = canvas.toDataURL('image/png');
