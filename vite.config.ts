@@ -5,7 +5,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [react()],
   // Set base to your GitHub repo name for GitHub Pages
-  base: '/Smart-Calories-Calculator/',
+  base: '/CalcuLite/',
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
