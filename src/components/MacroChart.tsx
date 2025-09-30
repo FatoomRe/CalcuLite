@@ -35,7 +35,18 @@ export const MacroChart: React.FC<MacroChartProps> = ({ results, language }) => 
     }
   ];
 
-  const CustomTooltip = ({ active, payload }: any) => {
+  const CustomTooltip = ({ active, payload }: { 
+    active?: boolean; 
+    payload?: Array<{ 
+      payload: { 
+        name: string; 
+        value: number; 
+        color: string; 
+        grams: number; 
+        calories: number; 
+      } 
+    }> 
+  }) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (

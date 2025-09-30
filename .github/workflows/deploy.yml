@@ -30,6 +30,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Fix base path for GitHub Pages
+        run: |
+          REPO_NAME=${GITHUB_REPOSITORY#*/}
+          sed -i "s|base: '/[^']*'|base: '/$REPO_NAME/'|g" vite.config.ts
+          echo "✅ Updated base path to /$REPO_NAME/"
+          echo "📄 Current vite.config.ts:"
+          cat vite.config.ts
+
       - name: Build
         run: npm run build
 

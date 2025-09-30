@@ -62,7 +62,7 @@ export const generatePDF = async (_results: MacroResults, language: Language) =>
 };
 
 // Open the generated PDF in a new tab for preview instead of saving
-export const previewPDF = async (_results: MacroResults) => {
+export const previewPDF = async () => {
   const resultsEl = document.getElementById('results-section');
   if (!resultsEl) return;
 

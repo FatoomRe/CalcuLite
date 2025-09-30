@@ -7,7 +7,7 @@ interface ExerciseCardProps {
     exercise: Exercise;
     exerciseIndex: number;
     language: Language;
-    t: any; // translations object
+    t: Record<string, string>; // translations object
 }
 
 export const ExerciseCard: React.FC<ExerciseCardProps> = ({

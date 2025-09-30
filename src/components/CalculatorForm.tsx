@@ -103,7 +103,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
     }
   };
 
-  const handleChange = (field: keyof FormData, value: any) => {
+  const handleChange = (field: keyof FormData, value: string | number | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     // Clear error when user starts typing
     if (errors[field]) {
