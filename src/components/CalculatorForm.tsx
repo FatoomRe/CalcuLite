@@ -132,10 +132,10 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
         </h2>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className={`space-y-6 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
         {/* Unit System */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+          <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
             {t.unitSystem}
           </label>
           <div className="grid grid-cols-2 gap-3">
@@ -159,7 +159,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Age */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
               {t.age}
             </label>
             <input
@@ -173,23 +173,23 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
                 errors.age 
                   ? 'border-red-300 dark:border-red-600' 
                   : 'border-gray-300 dark:border-gray-600'
-              } bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all`}
+              } bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all ${language === 'ar' ? 'text-right' : 'text-left'}`}
               required
             />
             {errors.age && (
-              <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.age}</p>
+              <p className={`mt-1 text-sm text-red-600 dark:text-red-400 ${language === 'ar' ? 'text-right' : 'text-left'}`}>{errors.age}</p>
             )}
           </div>
 
           {/* Gender */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
               {t.gender}
             </label>
             <select
               value={formData.gender}
               onChange={(e) => handleChange('gender', e.target.value)}
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all"
+              className={`w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all ${language === 'ar' ? 'text-right' : 'text-left'}`}
             >
               <option value="male">{t.male}</option>
               <option value="female">{t.female}</option>
@@ -200,7 +200,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
         {/* Pregnancy Status - Only show for females */}
         {formData.gender === 'female' && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+            <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
               {t.pregnancyStatus}
             </label>
             <div className="grid grid-cols-3 gap-3">
@@ -225,7 +225,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Height */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
               {formData.unitSystem === 'metric' ? t.heightCm : t.heightIn}
             </label>
             <input
@@ -242,17 +242,17 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
                 errors.height 
                   ? 'border-red-300 dark:border-red-600' 
                   : 'border-gray-300 dark:border-gray-600'
-              } bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all`}
+              } bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all ${language === 'ar' ? 'text-right' : 'text-left'}`}
               required
             />
             {errors.height && (
-              <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.height}</p>
+              <p className={`mt-1 text-sm text-red-600 dark:text-red-400 ${language === 'ar' ? 'text-right' : 'text-left'}`}>{errors.height}</p>
             )}
           </div>
 
           {/* Weight */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
               {formData.unitSystem === 'metric' ? t.weightKg : t.weightLbs}
             </label>
             <input
@@ -269,18 +269,18 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
                 errors.weight 
                   ? 'border-red-300 dark:border-red-600' 
                   : 'border-gray-300 dark:border-gray-600'
-              } bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all`}
+              } bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all ${language === 'ar' ? 'text-right' : 'text-left'}`}
               required
             />
             {errors.weight && (
-              <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.weight}</p>
+              <p className={`mt-1 text-sm text-red-600 dark:text-red-400 ${language === 'ar' ? 'text-right' : 'text-left'}`}>{errors.weight}</p>
             )}
           </div>
         </div>
 
         {/* Body Fat Percentage */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
             {t.bodyFatPercentage}
           </label>
           <input
@@ -294,16 +294,16 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
               errors.bodyFatPercentage 
                 ? 'border-red-300 dark:border-red-600' 
                 : 'border-gray-300 dark:border-gray-600'
-            } bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all`}
+            } bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all ${language === 'ar' ? 'text-right' : 'text-left'}`}
           />
           {errors.bodyFatPercentage && (
-            <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.bodyFatPercentage}</p>
+            <p className={`mt-1 text-sm text-red-600 dark:text-red-400 ${language === 'ar' ? 'text-right' : 'text-left'}`}>{errors.bodyFatPercentage}</p>
           )}
         </div>
 
         {/* Activity Level */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+          <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
             {t.activityLevel}
           </label>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -329,7 +329,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
 
         {/* Goal */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+          <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
             {t.goal}
           </label>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -355,7 +355,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
 
         {/* BMR Formula */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+          <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
             {t.bmrFormula}
           </label>
           <div className="grid grid-cols-1 gap-3">
@@ -364,16 +364,16 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
                 key={formula}
                 type="button"
                 onClick={() => handleChange('bmrFormula', formula)}
-                className={`p-4 rounded-lg border-2 transition-all text-left ${
+                className={`p-4 rounded-lg border-2 transition-all ${language === 'ar' ? 'text-right' : 'text-left'} ${
                   formData.bmrFormula === formula
                     ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
                     : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
                 }`}
               >
-                <div className="font-medium text-sm mb-1">
+                <div className={`font-medium text-sm mb-1 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
                   {t[formula]}
                 </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">
+                <div className={`text-xs text-gray-500 dark:text-gray-400 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
                   {t[formula + 'Desc' as keyof typeof t]}
                 </div>
               </button>
@@ -383,7 +383,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
 
         {/* Macro Distribution */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+          <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
             {t.macroDistribution}
           </label>
           <div className="grid grid-cols-1 gap-3">
@@ -392,13 +392,13 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
                 key={macro}
                 type="button"
                 onClick={() => handleChange('macroDistribution', macro)}
-                className={`p-4 rounded-lg border-2 transition-all text-left ${
+                className={`p-4 rounded-lg border-2 transition-all ${language === 'ar' ? 'text-right' : 'text-left'} ${
                   formData.macroDistribution === macro
                     ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
                     : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
                 }`}
               >
-                <div className="font-medium text-sm mb-1">
+                <div className={`font-medium text-sm mb-1 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
                   {t[macro]}
                 </div>
               </button>
@@ -411,7 +411,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
           <div>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
                   {t.customProtein}
                 </label>
                 <input
@@ -421,11 +421,11 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
                   value={formData.customMacros.protein}
                   placeholder="30"
                   onChange={(e) => handleCustomMacroChange('protein', e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all"
+                  className={`w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all ${language === 'ar' ? 'text-right' : 'text-left'}`}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
                   {t.customFat}
                 </label>
                 <input
@@ -435,11 +435,11 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
                   value={formData.customMacros.fat}
                   placeholder="25"
                   onChange={(e) => handleCustomMacroChange('fat', e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all"
+                  className={`w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all ${language === 'ar' ? 'text-right' : 'text-left'}`}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className={`block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 ${language === 'ar' ? 'text-right' : 'text-left'}`}>
                   {t.customCarbs}
                 </label>
                 <input
@@ -449,7 +449,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
                   value={formData.customMacros.carbs}
                   placeholder="45"
                   onChange={(e) => handleCustomMacroChange('carbs', e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all"
+                  className={`w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-all ${language === 'ar' ? 'text-right' : 'text-left'}`}
                 />
               </div>
             </div>
