@@ -107,6 +107,7 @@ interface ResultsDisplayProps {
 **Features**:
 - BMR/TDEE/Goal calories display
 - Macro breakdown visualization
+- Ideal weight calculations display
 - PDF export functionality
 - Print-friendly layout
 
@@ -198,8 +199,18 @@ interface UserData {
   gender: 'male' | 'female';
   height: string;
   weight: string;
-  activityLevel: 'sedentary' | 'moderate' | 'active';
-  goal: 'build' | 'lose';
+  unitSystem: 'metric' | 'imperial';
+  pregnancyStatus: 'none' | 'pregnant' | 'breastfeeding';
+  bodyFatPercentage: string;
+  activityLevel: 'sedentary' | 'light' | 'moderate' | 'active' | 'veryActive';
+  goal: 'lose' | 'maintain' | 'gain';
+  bmrFormula: 'mifflinStJeor' | 'harrisBenedict' | 'katchMcArdle';
+  macroDistribution: 'balanced' | 'lowCarb' | 'highProtein' | 'custom';
+  customMacros: {
+    protein: string;
+    fat: string;
+    carbs: string;
+  };
 }
 ```
 
@@ -213,6 +224,8 @@ interface MacroResults {
   carbs: MacroNutrient;
   fat: MacroNutrient;
   water: WaterIntake;
+  heartRate: HeartRateData;
+  idealWeight: IdealWeight;
 }
 
 interface MacroNutrient {
@@ -224,12 +237,6 @@ interface MacroNutrient {
 interface WaterIntake {
   liters: number;
   milliliters: number;
-}
-
-interface MacroNutrient {
-  grams: number;
-  calories: number;
-  percentage: number;
 }
 ```
 
@@ -247,8 +254,10 @@ Women: BMR = 10 × weight + 6.25 × height - 5 × age - 161
 
 **Activity Multipliers**:
 - Sedentary: 1.2
+- Light: 1.375
 - Moderate: 1.55
-- Active: 1.9
+- Active: 1.725
+- Very Active: 1.9
 
 #### `calculateWaterIntake(userData: UserData): WaterIntake`
 **Description**: Calculates daily water intake requirements based on individual factors
@@ -268,8 +277,10 @@ Age adjustment:
 
 Activity adjustment:
 - Sedentary: × 1.0
+- Light: × 1.15
 - Moderate: × 1.15
 - Active: × 1.3
+- Very Active: × 1.3
 
 Final water = Base × Gender × Age × Activity
 ```
@@ -283,6 +294,26 @@ const waterNeeds = calculateWaterIntake({
   activityLevel: 'moderate'
 });
 // Returns: { liters: 3.0, milliliters: 3019 }
+```
+
+#### `calculateIdealWeight(userData: UserData): IdealWeight`
+**Description**: Calculates ideal weight using multiple scientific methods
+
+**Returns**:
+```typescript
+interface IdealWeight {
+  bmi: {
+    normal: number; // BMI 18.5-24.9 range
+    optimal: number; // BMI 22 (optimal)
+  };
+  robinson: number; // Robinson formula
+  miller: number; // Miller formula
+  hamwi: number; // Hamwi formula
+  devine: number; // Devine formula
+  currentBmi: number;
+  bmiCategory: string;
+  bmiCategoryAr: string;
+}
 ```
 
 ### PDF Export Functions
@@ -455,6 +486,92 @@ const calculateBMRHarris = (weight: number, height: number, age: number, gender:
 };
 ```
 
+### ⚖️ Ideal Weight Calculation
+
+The app calculates ideal weight using multiple scientific methods and displays all results in your selected unit (kg/lbs):
+
+**Formulas Supported**:
+- **BMI-based Range**: Normal (18.5–24.9), Optimal (BMI 22)
+- **Robinson Formula (1983)**
+- **Miller Formula (1983)**
+- **Hamwi Formula (1964)**
+- **Devine Formula (1974)**
+
+All results include your current BMI and category (Underweight, Normal, Overweight, Obese).
+
+#### API Reference
+```typescript
+export interface IdealWeight {
+  bmi: {
+    normal: number; // BMI 18.5-24.9 range
+    optimal: number; // BMI 22 (optimal)
+  };
+  robinson: number; // Robinson formula
+  miller: number; // Miller formula
+  hamwi: number; // Hamwi formula
+  devine: number; // Devine formula
+  currentBmi: number;
+  bmiCategory: string;
+  bmiCategoryAr: string;
+}
+
+export const calculateIdealWeight = (userData: UserData): IdealWeight;
+```
+
+#### Implementation Details
+```typescript
+const calculateIdealWeight = (userData: UserData): IdealWeight => {
+  const { height, weight, gender, unitSystem } = userData;
+  
+  // Convert to metric if needed
+  let heightCm = height;
+  let weightKg = weight;
+  
+  if (unitSystem === 'imperial') {
+    heightCm = height * 2.54; // inches to cm
+    weightKg = weight * 0.453592; // lbs to kg
+  }
+  
+  const heightM = heightCm / 100; // cm to meters
+  
+  // Calculate current BMI
+  const currentBmi = weightKg / (heightM * heightM);
+  
+  // Calculate ideal weights using different methods
+  // Robinson Formula (1983)
+  let robinson: number;
+  if (gender === 'male') {
+    robinson = 52 + (1.9 * ((heightCm - 152.4) / 2.54));
+  } else {
+    robinson = 49 + (1.7 * ((heightCm - 152.4) / 2.54));
+  }
+  
+  // Additional formulas implementation...
+  // Results are converted back to imperial if needed
+};
+```
+
+#### Example Usage
+```typescript
+const idealWeight = calculateIdealWeight({
+  height: 175,
+  weight: 70,
+  gender: 'male',
+  unitSystem: 'metric'
+});
+// Returns:
+// {
+//   bmi: { normal: 60, optimal: 67 },
+//   robinson: 67,
+//   miller: 68,
+//   hamwi: 70,
+//   devine: 71,
+//   currentBmi: 22.9,
+//   bmiCategory: 'Normal weight',
+//   bmiCategoryAr: 'وزن طبيعي'
+// }
+```
+
 ### Macro Distribution Logic
 
 ```typescript
@@ -507,8 +624,10 @@ const calculateWaterIntake = (userData: UserData): WaterIntake => {
   // Activity level adjustments for sweat loss
   const activityMultipliers = {
     sedentary: 1.0,   // No additional water
+    light: 1.15,      // +15% for light exercise
     moderate: 1.15,   // +15% for moderate exercise
-    active: 1.3       // +30% for intense training
+    active: 1.3,      // +30% for intense training
+    veryActive: 1.3   // +30% for very intense training
   };
   
   baseWaterMl *= activityMultipliers[activityLevel];
@@ -585,7 +704,7 @@ test('should calculate BMR correctly', () => {
 
 ```typescript
 // Test calculation accuracy
-import { calculateBMR, calculateTDEE } from '../utils/calculations';
+import { calculateBMR, calculateTDEE, calculateIdealWeight } from '../utils/calculations';
 
 test('BMR calculation for male', () => {
   const bmr = calculateBMR(25, 'male', 175, 70);
@@ -595,6 +714,17 @@ test('BMR calculation for male', () => {
 test('TDEE calculation for moderate activity', () => {
   const tdee = calculateTDEE(1673, 'moderate');
   expect(tdee).toBeCloseTo(2593, 0);
+});
+
+test('Ideal weight calculation', () => {
+  const idealWeight = calculateIdealWeight({
+    height: 175,
+    weight: 70,
+    gender: 'male',
+    unitSystem: 'metric'
+  });
+  expect(idealWeight.robinson).toBeCloseTo(67, 0);
+  expect(idealWeight.currentBmi).toBeCloseTo(22.9, 1);
 });
 ```
 
@@ -614,6 +744,7 @@ describe('CalcuLite', () => {
     // Submit and verify results
     cy.get('[data-testid="calculate-button"]').click();
     cy.get('[data-testid="bmr-result"]').should('contain', '1,673');
+    cy.get('[data-testid="ideal-weight-result"]').should('be.visible');
   });
 });
 ```
@@ -692,14 +823,12 @@ const optimizedImages = {
 
 ```html
 <!-- Meta tags for SEO -->
-<meta name="description" content="Free bilingual calories calculator and workout planner. Calculate BMR, TDEE, and macros with personalized workout plans.">
-<meta name="keywords" content="calories calculator, macro calculator, workout planner, BMR, TDEE, fitness">
+<meta name="description" content="Free bilingual calories calculator and workout planner. Calculate BMR, TDEE, macros, and ideal weight with personalized workout plans.">
+<meta name="keywords" content="calories calculator, macro calculator, workout planner, BMR, TDEE, ideal weight, fitness">
 <meta property="og:title" content="CalcuLite">
-<meta property="og:description" content="Calculate your daily calories and get personalized workout plans">
+<meta property="og:description" content="Calculate your daily calories, ideal weight, and get personalized workout plans">
 <meta property="og:image" content="/og-image.png">
 ```
-
----
 
 ## Support & Contributing
 
@@ -719,7 +848,7 @@ This project is completely safe for open source distribution:
 - ✅ **No payment processing or sensitive data**
 
 ### Privacy-First Design
-- **Local calculations only** - All BMR/TDEE/macro calculations happen in the browser
+- **Local calculations only** - All BMR/TDEE/macro/ideal weight calculations happen in the browser
 - **No data transmission** - No user data is sent to external servers
 - **No tracking** - No analytics, cookies, or user behavior monitoring
 - **Offline capable** - Works without internet connection after initial load

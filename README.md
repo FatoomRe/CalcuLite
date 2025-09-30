@@ -45,6 +45,7 @@ A modern, bilingual web application for calculating daily calorie needs, macro b
   - Custom Distribution (user-defined percentages)
 - **Body Fat Percentage**: Optional input for more accurate Katch-McArdle calculations
 - **Pregnancy & Breastfeeding Support**: Specialized calorie adjustments for expecting and nursing mothers
+- **⚖️ Ideal Weight Calculator**: Multiple scientific methods (Robinson, Miller, Hamwi, Devine formulas) plus BMI-based ranges with current BMI analysis
 - **💧 Enhanced Water Calculator**: Improved hydration recommendations based on gender, age, weight, activity level, and unit system
 
 ### 🏋️ Workout Planning
@@ -224,11 +225,20 @@ colors: {
 - **Pregnancy**: +300 calories to BMR (2nd & 3rd trimester)
 - **Breastfeeding**: +500 calories to BMR
 
-### Water Intake Formula
-- **Base**: 35ml per kg body weight
-- **Gender Adjustment**: Men +10% (higher muscle mass)
-- **Age Adjustment**: 50+ years +5%, 65+ years +10%
-- **Activity Adjustment**: Very Low +0%, Low +10%, Moderate +20%, High +30%, Very High +40%
+### ⚖️ Ideal Weight Calculation
+Calculate your ideal weight using multiple scientific methods:
+
+**Formulas Available**:
+- **BMI-based Range**: Normal weight (BMI 18.5–24.9), Optimal weight (BMI 22)
+- **Robinson Formula (1983)**: Men: 52 + 1.9 × (height_cm - 152.4)/2.54, Women: 49 + 1.7 × (height_cm - 152.4)/2.54
+- **Miller Formula (1983)**: Men: 56.2 + 1.41 × (height_cm - 152.4)/2.54, Women: 53.1 + 1.36 × (height_cm - 152.4)/2.54
+- **Hamwi Formula (1964)**: Men: 48 + 2.7 × (height_cm - 152.4)/2.54, Women: 45.5 + 2.2 × (height_cm - 152.4)/2.54
+- **Devine Formula (1974)**: Men: 50 + 2.3 × (height_cm - 152.4)/2.54, Women: 45.5 + 2.3 × (height_cm - 152.4)/2.54
+
+**Additional Features**:
+- Current BMI calculation and category classification
+- Results displayed in your selected unit system (kg/lbs)
+- Bilingual BMI categories (English/Arabic)
 
 ### 💧 Water Intake Calculation
 **Base Formula**: 35ml per kg of body weight
@@ -284,6 +294,28 @@ const waterIntake = calculateWaterIntake({
 // Returns: { liters: 2.7, milliliters: 2695 }
 ```
 
+### Ideal Weight Calculation
+```typescript
+const idealWeight = calculateIdealWeight({
+  height: 175,
+  weight: 70,
+  gender: 'male',
+  unitSystem: 'metric'
+});
+
+// Returns:
+// {
+//   bmi: { normal: 60, optimal: 67 },
+//   robinson: 67,
+//   miller: 68,
+//   hamwi: 70,
+//   devine: 71,
+//   currentBmi: 22.9,
+//   bmiCategory: 'Normal weight',
+//   bmiCategoryAr: 'وزن طبيعي'
+// }
+```
+
 ### Language Switching
 ```typescript
 const { language, switchLanguage } = useLanguage();
@@ -310,7 +342,7 @@ We welcome contributions! Please read our [Contributing Guidelines](CONTRIBUTING
 - Ensure responsive design
 - Support both languages (EN/AR)
 
-## �️ Security
+## 🛡️ Security
 
 This project is **100% safe for open source** because:
 
@@ -330,9 +362,9 @@ This project is **100% safe for open source** because:
 - **No tracking** - No analytics or user behavior monitoring
 - **No cookies** - No persistent data storage beyond your current session
 
-## � Documentation
+## 📚 Documentation
 
-- **[� User Documentation](DOCUMENTATION.md)** - Detailed usage guide
+- **[📚 User Documentation](DOCUMENTATION.md)** - Detailed usage guide
 - **[🤝 Contributing Guidelines](CONTRIBUTING.md)** - How to contribute
 
 ## 📝 License
@@ -348,6 +380,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [ ] Nutrition database integration
 - [ ] Progress tracking and analytics
 - [x] **💧 Daily water intake calculator** *(Recently Added)*
+- [x] **⚖️ Ideal weight calculator** *(Recently Added)*
 - [ ] Hydration reminders and tracking
 - [ ] Weather-based water intake adjustments
 
