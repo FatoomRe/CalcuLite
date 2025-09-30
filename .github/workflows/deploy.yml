@@ -1,9 +1,10 @@
 name: Deploy to GitHub Pages
 
+# Temporarily disabled - using docs folder deployment instead
 on:
-  push:
-    branches: [ master ]
   workflow_dispatch:
+  # push:
+  #   branches: [ master ]
 
 permissions:
   contents: read
