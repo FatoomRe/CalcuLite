@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { CalculatorForm } from './components/CalculatorForm';
 import { Header } from './components/Header';
+import { IdealWeight } from './components/IdealWeight';
 import { MacroChart } from './components/MacroChart';
 import { ResultsDisplay } from './components/ResultsDisplay';
 import { SplashScreen } from './components/SplashScreen';
@@ -89,8 +90,8 @@ function App() {
               </div>
 
               {/* Results Display and Chart */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-                <div className="h-full flex flex-col">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div className="space-y-8">
                   <ResultsDisplay
                     results={results}
                     language={language}
@@ -99,8 +100,14 @@ function App() {
                     onPrint={handlePrint}
                   />
                 </div>
-                <div className="h-full flex flex-col">
+                <div className="space-y-8">
                   <MacroChart results={results} language={language} />
+                  <IdealWeight 
+                    results={results} 
+                    language={language} 
+                    userData={{ height: userData?.height || 0, weight: userData?.weight || 0 }}
+                    unitSystem={userData?.unitSystem}
+                  />
                 </div>
               </div>
 

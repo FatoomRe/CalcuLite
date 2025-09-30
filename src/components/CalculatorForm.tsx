@@ -364,9 +364,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
                 key={formula}
                 type="button"
                 onClick={() => handleChange('bmrFormula', formula)}
-                className={`p-4 rounded-lg border-2 transition-all ${
-                  language === 'ar' ? 'text-right' : 'text-left'
-                } ${
+                className={`p-4 rounded-lg border-2 transition-all text-left ${
                   formData.bmrFormula === formula
                     ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
                     : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
@@ -394,9 +392,7 @@ export const CalculatorForm: React.FC<CalculatorFormProps> = ({
                 key={macro}
                 type="button"
                 onClick={() => handleChange('macroDistribution', macro)}
-                className={`p-4 rounded-lg border-2 transition-all ${
-                  language === 'ar' ? 'text-right' : 'text-left'
-                } ${
+                className={`p-4 rounded-lg border-2 transition-all text-left ${
                   formData.macroDistribution === macro
                     ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
                     : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'

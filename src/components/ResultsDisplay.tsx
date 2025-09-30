@@ -1,4 +1,4 @@
-import { Download, Droplets, Heart, Printer, Scale, Target, TrendingUp, Zap } from 'lucide-react';
+import { Download, Droplets, Heart, Printer, Target, TrendingUp, Zap } from 'lucide-react';
 import React from 'react';
 import { translations } from '../data/translations';
 import { Language, MacroResults } from '../types';
@@ -14,12 +14,10 @@ interface ResultsDisplayProps {
 export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
   results,
   language,
-  unitSystem = 'metric',
   onDownloadPDF,
   onPrint,
 }) => {
   const t = translations[language];
-  const weightUnit = unitSystem === 'metric' ? 'kg' : 'lbs';
 
   const stats = [
     {
@@ -108,12 +106,12 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
       </div>
 
       {/* Daily Macros Card */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 flex-1 flex flex-col">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6">
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
           {t.dailyCalories}: {results.goalTdee.toLocaleString()}
         </h3>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="text-center p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg break-inside-avoid">
             <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
               {results.protein.grams}g
@@ -179,7 +177,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
                   {Math.round(zone.min * 100)}% - {Math.round(zone.max * 100)}% {t.maxHeartRate}
                 </div>
               </div>
-              <div className="text-right">
+              <div className="text-left">
                 <div className="font-bold text-red-600 dark:text-red-400">
                   {zone.minBpm} - {zone.maxBpm}
                 </div>
@@ -189,79 +187,6 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               </div>
             </div>
           ))}
-        </div>
-      </div>
-
-      {/* Ideal Weight Card */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 flex-1 flex flex-col">
-        <div className="flex items-center gap-3 mb-6">
-          <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
-            <Scale className="h-6 w-6 text-green-600 dark:text-green-400" />
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-              {t.idealWeight}
-            </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              {t.currentBmi}: {results.idealWeight.currentBmi} ({language === 'ar' ? results.idealWeight.bmiCategoryAr : results.idealWeight.bmiCategory})
-            </p>
-          </div>
-        </div>
-        
-        <div className="space-y-4 flex-1">
-          {/* BMI-based calculations */}
-          <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-            <h4 className="font-medium text-gray-900 dark:text-white mb-2">
-              {t.normalBmiRange}
-            </h4>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">
-                  {t.normalBmiRange}
-                </div>
-                <div className="font-bold text-green-600 dark:text-green-400">
-                  {results.idealWeight.bmi.normal} {weightUnit}
-                </div>
-              </div>
-              <div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">
-                  {t.optimalWeight}
-                </div>
-                <div className="font-bold text-green-600 dark:text-green-400">
-                  {results.idealWeight.bmi.optimal} {weightUnit}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Formula-based calculations */}
-          <div className="space-y-2">
-            <h4 className="font-medium text-gray-900 dark:text-white mb-2">
-              {t.idealWeightMethods}
-            </h4>
-            
-            <div className="grid grid-cols-2 gap-2">
-              <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-700/50 rounded">
-                <span className="text-sm text-gray-600 dark:text-gray-400">{t.robinsonFormula}</span>
-                <span className="font-medium text-gray-900 dark:text-white">{results.idealWeight.robinson} {weightUnit}</span>
-              </div>
-              
-              <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-700/50 rounded">
-                <span className="text-sm text-gray-600 dark:text-gray-400">{t.millerFormula}</span>
-                <span className="font-medium text-gray-900 dark:text-white">{results.idealWeight.miller} {weightUnit}</span>
-              </div>
-              
-              <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-700/50 rounded">
-                <span className="text-sm text-gray-600 dark:text-gray-400">{t.hamwiFormula}</span>
-                <span className="font-medium text-gray-900 dark:text-white">{results.idealWeight.hamwi} {weightUnit}</span>
-              </div>
-              
-              <div className="flex justify-between items-center p-2 bg-gray-50 dark:bg-gray-700/50 rounded">
-                <span className="text-sm text-gray-600 dark:text-gray-400">{t.devineFormula}</span>
-                <span className="font-medium text-gray-900 dark:text-white">{results.idealWeight.devine} {weightUnit}</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
