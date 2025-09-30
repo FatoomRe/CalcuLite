@@ -16,6 +16,7 @@ function App() {
   const { language, switchLanguage } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const [results, setResults] = useState<MacroResults | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [showSplash, setShowSplash] = useState(true);
   const t = translations[language];
 
@@ -26,6 +27,7 @@ function App() {
   const handleCalculate = (userData: UserData) => {
     const calculatedResults = calculateMacros(userData);
     setResults(calculatedResults);
+    setUserData(userData);
     
     // Smooth scroll to results
     setTimeout(() => {
@@ -92,6 +94,7 @@ function App() {
                   <ResultsDisplay
                     results={results}
                     language={language}
+                    unitSystem={userData?.unitSystem}
                     onDownloadPDF={handleDownloadPDF}
                     onPrint={handlePrint}
                   />

@@ -1,4 +1,4 @@
-import { HeartRateZone, MacroResults, UserData } from '../types';
+import { HeartRateZone, IdealWeight, MacroResults, UserData } from '../types';
 
 // Heart rate zones data
 const heartRateZonesData = [
@@ -51,6 +51,112 @@ export const calculateHeartRateZones = (age: number): { maxHeartRate: number; zo
   return {
     maxHeartRate,
     zones
+  };
+};
+
+export const calculateIdealWeight = (userData: UserData): IdealWeight => {
+  const { height, weight, gender, unitSystem } = userData;
+  
+  // Convert to metric if needed
+  let heightCm = height;
+  let weightKg = weight;
+  
+  if (unitSystem === 'imperial') {
+    heightCm = height * 2.54; // inches to cm
+    weightKg = weight * 0.453592; // lbs to kg
+  }
+  
+  const heightM = heightCm / 100; // cm to meters
+  
+  // Calculate current BMI
+  const currentBmi = weightKg / (heightM * heightM);
+  
+  // BMI categories
+  let bmiCategory: string;
+  let bmiCategoryAr: string;
+  
+  if (currentBmi < 18.5) {
+    bmiCategory = 'Underweight';
+    bmiCategoryAr = 'نقص الوزن';
+  } else if (currentBmi < 25) {
+    bmiCategory = 'Normal weight';
+    bmiCategoryAr = 'وزن طبيعي';
+  } else if (currentBmi < 30) {
+    bmiCategory = 'Overweight';
+    bmiCategoryAr = 'زيادة الوزن';
+  } else {
+    bmiCategory = 'Obese';
+    bmiCategoryAr = 'سمنة';
+  }
+  
+  // Calculate ideal weights using different methods
+  
+  // BMI-based calculations
+  const normalBmiMin = 18.5 * heightM * heightM; // Minimum normal weight
+  const normalBmiMax = 24.9 * heightM * heightM; // Maximum normal weight
+  const optimalBmi = 22 * heightM * heightM; // Optimal BMI weight
+  
+  // Robinson Formula (1983)
+  let robinson: number;
+  if (gender === 'male') {
+    robinson = 52 + (1.9 * ((heightCm - 152.4) / 2.54));
+  } else {
+    robinson = 49 + (1.7 * ((heightCm - 152.4) / 2.54));
+  }
+  
+  // Miller Formula (1983)
+  let miller: number;
+  if (gender === 'male') {
+    miller = 56.2 + (1.41 * ((heightCm - 152.4) / 2.54));
+  } else {
+    miller = 53.1 + (1.36 * ((heightCm - 152.4) / 2.54));
+  }
+  
+  // Hamwi Formula (1964)
+  let hamwi: number;
+  if (gender === 'male') {
+    hamwi = 48 + (2.7 * ((heightCm - 152.4) / 2.54));
+  } else {
+    hamwi = 45.5 + (2.2 * ((heightCm - 152.4) / 2.54));
+  }
+  
+  // Devine Formula (1974)
+  let devine: number;
+  if (gender === 'male') {
+    devine = 50 + (2.3 * ((heightCm - 152.4) / 2.54));
+  } else {
+    devine = 45.5 + (2.3 * ((heightCm - 152.4) / 2.54));
+  }
+  
+  // Convert back to imperial if needed
+  if (unitSystem === 'imperial') {
+    return {
+      bmi: {
+        normal: Math.round((normalBmiMin + normalBmiMax) / 2 / 0.453592), // average normal weight in lbs
+        optimal: Math.round(optimalBmi / 0.453592), // optimal weight in lbs
+      },
+      robinson: Math.round(robinson / 0.453592),
+      miller: Math.round(miller / 0.453592),
+      hamwi: Math.round(hamwi / 0.453592),
+      devine: Math.round(devine / 0.453592),
+      currentBmi: Math.round(currentBmi * 10) / 10,
+      bmiCategory,
+      bmiCategoryAr
+    };
+  }
+  
+  return {
+    bmi: {
+      normal: Math.round((normalBmiMin + normalBmiMax) / 2), // average normal weight in kg
+      optimal: Math.round(optimalBmi), // optimal weight in kg
+    },
+    robinson: Math.round(robinson),
+    miller: Math.round(miller),
+    hamwi: Math.round(hamwi),
+    devine: Math.round(devine),
+    currentBmi: Math.round(currentBmi * 10) / 10,
+    bmiCategory,
+    bmiCategoryAr
   };
 };
 
@@ -208,6 +314,9 @@ export const calculateMacros = (userData: UserData): MacroResults => {
   // Step 6: Calculate Heart Rate Zones
   const heartRateData = calculateHeartRateZones(age);
 
+  // Step 7: Calculate Ideal Weight
+  const idealWeightData = calculateIdealWeight(userData);
+
   return {
     bmr: Math.round(bmr),
     tdee: Math.round(tdee),
@@ -228,7 +337,8 @@ export const calculateMacros = (userData: UserData): MacroResults => {
       percentage: Math.round((carbCalories / goalTdee) * 100)
     },
     water: waterIntake,
-    heartRate: heartRateData
+    heartRate: heartRateData,
+    idealWeight: idealWeightData
   };
 };
 

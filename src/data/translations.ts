@@ -91,6 +91,18 @@ export const translations = {
     bpm: "bpm",
     targetZone: "Target Zone",
     
+    // Ideal Weight
+    idealWeight: "Ideal Weight",
+    currentBmi: "Current BMI",
+    bmiCategory: "BMI Category",
+    normalBmiRange: "Normal BMI Range",
+    optimalWeight: "Optimal Weight",
+    robinsonFormula: "Robinson Formula",
+    millerFormula: "Miller Formula",
+    hamwiFormula: "Hamwi Formula",
+    devineFormula: "Devine Formula",
+    idealWeightMethods: "Ideal Weight Calculation Methods",
+    
     // Workout Plans
     workoutPlan: "4-Day Split Workout Plan",
     day: "Day",
@@ -218,6 +230,18 @@ export const translations = {
     heartRateZones: "نطاقات التدريب بنبضات القلب",
     bpm: "نبضة/دقيقة",
     targetZone: "النطاق المستهدف",
+    
+    // Ideal Weight
+    idealWeight: "الوزن المثالي",
+    currentBmi: "مؤشر كتلة الجسم الحالي",
+    bmiCategory: "فئة مؤشر كتلة الجسم",
+    normalBmiRange: "نطاق مؤشر كتلة الجسم الطبيعي",
+    optimalWeight: "الوزن الأمثل",
+    robinsonFormula: "معادلة روبنسون",
+    millerFormula: "معادلة ميلر",
+    hamwiFormula: "معادلة هامووي",
+    devineFormula: "معادلة ديفين",
+    idealWeightMethods: "طرق حساب الوزن المثالي",
     
     // Workout Plans
     workoutPlan: "خطة التمارين 4 أيام",

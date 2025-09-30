@@ -45,6 +45,20 @@ export interface HeartRateZone {
   maxBpm: number;
 }
 
+export interface IdealWeight {
+  bmi: {
+    normal: number; // BMI 18.5-24.9 range
+    optimal: number; // BMI 22 (optimal)
+  };
+  robinson: number; // Robinson formula
+  miller: number; // Miller formula
+  hamwi: number; // Hamwi formula
+  devine: number; // Devine formula
+  currentBmi: number;
+  bmiCategory: string;
+  bmiCategoryAr: string;
+}
+
 export interface MacroResults {
   bmr: number;
   tdee: number;
@@ -57,6 +71,7 @@ export interface MacroResults {
     maxHeartRate: number;
     zones: HeartRateZone[];
   };
+  idealWeight: IdealWeight;
 }
 
 export interface Exercise {
