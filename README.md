@@ -2,6 +2,8 @@
 
 A modern, bilingual web application for calculating daily calorie needs, macro breakdowns, and personalized workout plans. Built with React, TypeScript, and Tailwind CSS.
 
+🚀 **Live Demo**: [https://fatoomre.github.io/CalcuLite/](https://fatoomre.github.io/CalcuLite/)
+
 ![React](https://img.shields.io/badge/React-18.x-blue?logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-3.x-38B2AC?logo=tailwind-css)

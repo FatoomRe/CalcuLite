@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; url=./index.html" />
+    <meta http-equiv="refresh" content="0; url=/CalcuLite/" />
   </head>
   <body>
     <script>
@@ -11,6 +11,8 @@
       if (redirect) {
         sessionStorage.removeItem('redirect');
         window.location.replace(redirect);
+      } else {
+        window.location.replace('/CalcuLite/');
       }
     </script>
   </body>
